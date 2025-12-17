@@ -1,0 +1,269 @@
+:root{
+  --bg:#0f1724;
+  --card:#0b1220;
+  --accent:#6ee7b7;
+  --muted:#475569;
+  --glass: rgba(255,255,255,0.03);
+  --text:#e6eef6;
+  --border:rgba(255,255,255,0.04);
+  --bg-primary: #0f1724;
+  --text-primary: #e6eef6;
+  --text-secondary: #94a3b8;
+}
+
+[data-theme="light"]{
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --accent:#059669;
+  --muted:#334155;
+  --glass: rgba(0,0,0,0.04);
+  --text:#0f172a;
+  --border:rgba(0,0,0,0.15);
+  --bg-primary: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+}
+
+*{box-sizing:border-box;font-family:Inter,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+
+body,html,#root{height:100%;margin:0;background:linear-gradient(180deg,#071021 0%, #0b1220 100%);color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial;transition:background 0.3s, color 0.3s}
+
+[data-theme="light"] body,
+[data-theme="light"] html,
+[data-theme="light"] #root{
+  background:linear-gradient(180deg,#ffffff 0%, #f1f5f9 100%);
+  color: #0f172a;
+}
+
+[data-theme="light"] input {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme="light"] input::placeholder {
+  color: #64748b !important;
+}
+
+[data-theme="light"] table thead th {
+  color: #475569 !important;
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+[data-theme="light"] table tbody td {
+  color: #1e293b !important;
+  background: #ffffff;
+}
+
+[data-theme="light"] .card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+[data-theme="light"] .card-title {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .card-value {
+  color: #0f172a !important;
+}
+
+.app-root{height:100vh}
+.dashboard{padding:28px}
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.dash-header h2{margin:0;color:var(--text)}
+.header-actions{display:flex;gap:12px;align-items:center}
+.header-actions input{padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--glass);color:var(--text);outline:none}
+
+.theme-toggle{
+  background:var(--card);
+  border:1px solid var(--border);
+  width:36px;
+  height:36px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.1em;
+  cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  transition:all 0.3s;
+}
+
+.theme-toggle:hover{
+  transform:scale(1.05);
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+button{border:0;padding:10px 14px;border-radius:10px;cursor:pointer}
+button.primary{background:linear-gradient(90deg,#34d399,#06b6d4);color:#012;box-shadow:0 6px 20px rgba(6,182,212,0.12)}
+button.primary.small{padding:6px 10px;font-size:13px}
+button.ghost{background:var(--glass);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:8px;margin-right:8px}
+
+/* Slight spacing for header action buttons */
+.header-actions button{margin-left:8px}
+
+.cards{display:flex;gap:14px;margin-bottom:20px}
+.card{background:var(--glass);padding:18px;border-radius:12px;min-width:180px;border:1px solid var(--border)}
+.card-title{color:var(--muted);font-size:13px}
+.card-value{color:var(--text);font-size:20px;margin-top:6px;font-weight:600}
+
+/* Summary panel styles */
+.summary-panel{background:var(--card);border:1px solid var(--border);padding:16px;border-radius:12px;margin-bottom:18px}
+.summary-panel h3{margin:0 0 12px;color:var(--text)}
+.summary-grid{display:flex;gap:12px}
+.summary-item{background:var(--glass);padding:12px;border-radius:10px;min-width:140px;border:1px solid var(--border)}
+.summary-label{color:var(--muted);font-size:12px}
+.summary-value{color:var(--text);font-weight:700;margin-top:6px}
+
+.list h3{color:var(--text);margin:0 0 12px}
+table{width:100%;border-collapse:collapse;background:transparent;border-radius:10px;overflow:hidden}
+thead th{text-align:left;padding:12px 14px;color:var(--muted);font-size:13px;border-bottom:1px solid var(--border)}
+tbody td{padding:12px 14px;color:var(--text);border-bottom:1px solid var(--border)}
+.debt{color:#ffb86b;font-weight:600}
+
+/* Responsive Design - Mobile First */
+@media(max-width:900px){
+  .cards{flex-direction:column}
+  .dashboard{padding:16px}
+  
+  .dash-header{flex-direction:column;gap:12px;align-items:stretch}
+  .header-actions{flex-wrap:wrap;justify-content:center}
+  .header-actions input{width:100%;order:-1}
+  
+  table{font-size:14px}
+  thead th{padding:10px 8px;font-size:12px}
+  tbody td{padding:10px 8px}
+  
+  .summary-grid{flex-direction:column}
+  .summary-item{min-width:auto}
+}
+
+@media(max-width:640px){
+  .dashboard{padding:12px}
+  
+  /* Ocultar columnas menos importantes en móvil */
+  table thead th:first-child,
+  table tbody td:first-child{display:none}
+  
+  .header-actions button{font-size:1em;padding:10px 12px}
+  
+  /* Mejorar legibilidad de tabla en móvil */
+  table{font-size:13px}
+  thead th{padding:8px 6px;font-size:11px}
+  tbody td{padding:8px 6px}
+}
+
+/* Viewport para que no haga zoom en inputs en móvil */
+@viewport{width:device-width;zoom:1.0}
+
+/* Asegurar que la app ocupe toda la pantalla */
+html, body{
+  width:100%;
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+}
+
+/* Optimizar toques en móvil */
+button, a, [role="button"]{
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  touch-action:manipulation;
+}
+
+/* Estilos para modales en tema claro */
+[data-theme="light"] .modal-backdrop{
+  background:rgba(0,0,0,0.5);
+}
+
+[data-theme="light"] .modal,
+[data-theme="light"] .modal-detail{
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+}
+
+[data-theme="light"] .modal input,
+[data-theme="light"] .modal textarea,
+[data-theme="light"] .modal select,
+[data-theme="light"] .modal-detail input{
+  background:var(--glass);
+  color:var(--text);
+  border:1px solid var(--border);
+}
+
+[data-theme="light"] .info-label{
+  color:#1e293b;
+  font-weight:700;
+}
+
+[data-theme="light"] .info-value{
+  color:#000000;
+  font-weight:700;
+}
+
+[data-theme="light"] h3,
+[data-theme="light"] h4{
+  color:#000000 !important;
+  font-weight:700 !important;
+}
+
+[data-theme="light"] .modal h3{
+  color:#000000 !important;
+  font-weight:700 !important;
+}
+
+[data-theme="light"] label{
+  color:#1e293b !important;
+  font-weight:600 !important;
+}
+
+[data-theme="light"] tbody td{
+  color:#000000 !important;
+  font-weight:500;
+}
+
+[data-theme="light"] .card-value{
+  color:#000000 !important;
+  font-weight:700;
+}
+
+[data-theme="light"] .summary-value{
+  color:#000000 !important;
+  font-weight:700;
+}
+
+[data-theme="light"] input::placeholder{
+  color:#475569 !important;
+}
+
+/* Mejorar legibilidad de información de créditos en tema claro */
+[data-theme="light"] .modal-detail span[style*="color: rgb(71, 85, 105)"],
+[data-theme="light"] .modal-detail span[style*="color:#475569"]{
+  color:#1e293b !important;
+  font-weight:700 !important;
+}
+
+[data-theme="light"] .modal-detail div[style*="color: rgb(148, 163, 184)"],
+[data-theme="light"] .modal-detail div[style*="color:#94a3b8"]{
+  color:#1e293b !important;
+  font-weight:600 !important;
+}
+
+[data-theme="light"] .modal-detail span[style*="color: rgb(230, 238, 246)"],
+[data-theme="light"] .modal-detail span[style*="color:#e6eef6"]{
+  color:#000000 !important;
+  font-weight:700 !important;
+}
+
+[data-theme="light"] .modal-detail h4[style*="color: rgb(230, 238, 246)"],
+[data-theme="light"] .modal-detail h4[style*="color:#e6eef6"]{
+  color:#000000 !important;
+  font-weight:700 !important;
+}
+
+[data-theme="light"] .modal-detail div[style*="color: rgb(230, 238, 246)"],
+[data-theme="light"] .modal-detail div[style*="color:#e6eef6"]{
+  color:#000000 !important;
+  font-weight:600 !important;
+}

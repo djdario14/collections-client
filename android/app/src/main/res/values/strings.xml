@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Collections Manager</string>
+    <string name="title_activity_main">Collections Manager</string>
+    <string name="package_name">com.cobranzas.app</string>
+    <string name="custom_url_scheme">com.cobranzas.app</string>
+</resources>
