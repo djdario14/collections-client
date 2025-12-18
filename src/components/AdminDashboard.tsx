@@ -168,39 +168,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
 
       {/* Header (se muestra/oculta con el menú) */}
       {showMenu && (
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(99, 102, 241, 0.9) 100%)',
-          padding: '20px',
-          paddingTop: '80px',
-          paddingRight: '20px',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-          position: 'sticky',
-          top: isImpersonating ? 44 : 0,
-          zIndex: 99,
-          backdropFilter: 'blur(10px)'
-        }}>
-          <div style={{
-            maxWidth: 1400,
-            margin: '0 auto'
-          }}>
-            <h1 style={{ 
-              margin: 0, 
-              fontSize: '1.8em',
-              fontWeight: 700,
-              color: 'white'
-            }}>
-              🏢 Panel de Administrador
-            </h1>
-            <p style={{ 
-              margin: '4px 0 0 0', 
-              opacity: 0.9,
-              fontSize: '0.95em',
-              color: 'white'
-            }}>
-              {user.nombre} - Gestión de Cobradores y Rutas
-            </p>
-          </div>
-        </div>
+        // ...encabezado eliminado...
       )}
 
       {/* Botón de menú flotante */}
