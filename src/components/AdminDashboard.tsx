@@ -234,7 +234,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
               wordBreak: 'break-all',
               display: 'block'
             }}>
-              {`$${Number(totalCobrado).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+              {`$${isNaN(Number(totalCobrado)) ? '0.00' : Number(totalCobrado).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             </div>
             <div style={{ 
               fontSize: '0.95em',
@@ -300,7 +300,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
               wordBreak: 'break-all',
               display: 'block'
             }}>
-              {`$${Number(totalDeuda).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+              {`$${isNaN(Number(totalDeuda)) ? '0.00' : Number(totalDeuda).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             </div>
             <div style={{ 
               fontSize: '0.95em',
@@ -644,7 +644,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
                       wordBreak: 'break-all',
                       display: 'block'
                     }}>
-                      {`$${Number(c.deuda).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                      {`$${isNaN(Number(c.deuda)) ? '0.00' : Number(c.deuda).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                     </div>
                   </div>
                 )
