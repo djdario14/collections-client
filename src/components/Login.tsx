@@ -13,7 +13,7 @@ type Props = {
     adminId: number | null
     token: string
     sessionId: string
-  }) => void
+  }, keepLoggedIn: boolean) => void
   theme: 'dark' | 'light'
   onToggleTheme: () => void
 }
@@ -79,7 +79,7 @@ export default function Login({ onLogin, theme, onToggleTheme }: Props) {
         }
 
         const userData = await response.json()
-        onLogin(userData)
+        onLogin(userData, keepLoggedIn)
       } catch (err) {
         console.error('Error en login:', err)
         setError('Error de conexión con el servidor')
@@ -119,7 +119,7 @@ export default function Login({ onLogin, theme, onToggleTheme }: Props) {
         return
       }
 
-      onLogin(userData)
+      onLogin(userData, keepLoggedIn)
     } catch (err) {
       console.error('Error en login:', err)
       setError('Error de conexión con el servidor')

@@ -32,10 +32,19 @@ export default function App() {
   }, [theme])
 
   useEffect(() => {
-    // Validar sesión existente solo en sessionStorage
+    // Validar sesión existente en sessionStorage o localStorage
     const initAuth = async () => {
-      const token = sessionStorage.getItem('token')
-      const sessionId = sessionStorage.getItem('sessionId')
+      let token = sessionStorage.getItem('token')
+      let sessionId = sessionStorage.getItem('sessionId')
+      // Si no hay sesión en sessionStorage, buscar en localStorage
+      if (!token) {
+        token = localStorage.getItem('token')
+        sessionId = localStorage.getItem('sessionId')
+        if (token && sessionId) {
+          sessionStorage.setItem('token', token)
+          sessionStorage.setItem('sessionId', sessionId)
+        }
+      }
       if (!token) {
         setLoading(false)
         return
@@ -54,27 +63,37 @@ export default function App() {
         } else {
           sessionStorage.removeItem('token')
           sessionStorage.removeItem('sessionId')
+          localStorage.removeItem('token')
+          localStorage.removeItem('sessionId')
         }
       } catch (error) {
         console.error('Error validando sesión:', error)
         sessionStorage.removeItem('token')
         sessionStorage.removeItem('sessionId')
+        localStorage.removeItem('token')
+        localStorage.removeItem('sessionId')
       } finally {
         setLoading(false)
       }
     }
     initAuth()
-    // La sesión se mantiene hasta que se cierre la pestaña/app
   }, [])
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark')
   }
 
-  const handleLogin = (userData: User) => {
+  const handleLogin = (userData: User, keepLoggedIn: boolean) => {
     setUser(userData)
     sessionStorage.setItem('token', userData.token)
     sessionStorage.setItem('sessionId', userData.sessionId)
+    if (keepLoggedIn) {
+      localStorage.setItem('token', userData.token)
+      localStorage.setItem('sessionId', userData.sessionId)
+    } else {
+      localStorage.removeItem('token')
+      localStorage.removeItem('sessionId')
+    }
   }
 
   const handleLogout = async () => {
@@ -125,6 +144,8 @@ export default function App() {
     sessionStorage.removeItem('sessionId')
     sessionStorage.removeItem('isImpersonating')
     sessionStorage.removeItem('superAdminSession')
+    localStorage.removeItem('token')
+    localStorage.removeItem('sessionId')
   }
 
   if (loading) {
