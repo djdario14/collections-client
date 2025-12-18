@@ -226,9 +226,15 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
               fontSize: '2em', 
               fontWeight: 700,
               color: '#22c55e',
-              marginBottom: 4
+              marginBottom: 4,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: 220,
+              wordBreak: 'break-all',
+              display: 'block'
             }}>
-              ${totalCobrado.toLocaleString()}
+              {`$${Number(totalCobrado).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             </div>
             <div style={{ 
               fontSize: '0.95em',
@@ -286,9 +292,15 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
               fontSize: '2em', 
               fontWeight: 700,
               color: '#a855f7',
-              marginBottom: 4
+              marginBottom: 4,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: 220,
+              wordBreak: 'break-all',
+              display: 'block'
             }}>
-              ${totalDeuda.toLocaleString()}
+              {`$${Number(totalDeuda).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             </div>
             <div style={{ 
               fontSize: '0.95em',
@@ -624,9 +636,15 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
                       fontWeight: 700,
                       color: vencido ? '#ef4444' : '#8b5cf6',
                       textAlign: 'right',
-                      minWidth: 120
+                      minWidth: 120,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      maxWidth: 180,
+                      wordBreak: 'break-all',
+                      display: 'block'
                     }}>
-                      ${c.deuda.toLocaleString()}
+                      {`$${Number(c.deuda).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                     </div>
                   </div>
                 )
