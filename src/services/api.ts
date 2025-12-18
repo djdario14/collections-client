@@ -140,7 +140,7 @@ export async function getClients(): Promise<Cliente[]> {
 
   // Intentar obtener del servidor
   try {
-    const list = await tryFetch<Cliente[]>(`${API_BASE}/clients`);
+    const list = await tryFetch<Cliente[]>(`${API_BASE}/api/clients`);
     return list;
   } catch (err) {
     // Si falla y tenemos SQLite, usar local
@@ -160,7 +160,7 @@ export async function getClientById(id: string): Promise<Cliente | undefined> {
   }
 
   try {
-    const c = await tryFetch<Cliente>(`${API_BASE}/clients/${id}`);
+    const c = await tryFetch<Cliente>(`${API_BASE}/api/clients/${id}`);
     return c;
   } catch (err) {
     if (sqliteReady) {
@@ -179,7 +179,7 @@ export async function createPayment(clientId: string, payment: Omit<Payment, 'id
   }
 
   try {
-    const res = await tryFetch<Payment>(`${API_BASE}/clients/${clientId}/payments`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payment) });
+    const res = await tryFetch<Payment>(`${API_BASE}/api/clients/${clientId}/payments`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payment) });
     return res;
   } catch (err) {
     // Si falla y tenemos SQLite, guardar localmente
@@ -198,7 +198,7 @@ export async function createClient(payload: Omit<Cliente, 'id' | 'payments'>): P
   }
 
   try {
-    const res = await tryFetch<Cliente>(`${API_BASE}/clients`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const res = await tryFetch<Cliente>(`${API_BASE}/api/clients`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     return res;
   } catch (err) {
     if (sqliteReady) {
@@ -216,7 +216,7 @@ export async function createCredit(clientId: string, credit: Omit<Credit, 'id' |
   }
 
   try {
-    const res = await tryFetch<Credit>(`${API_BASE}/clients/${clientId}/credits`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: credit.amount, interest: credit.interest, frequency: credit.frequency, cuotas: (credit as any).cuotas }) });
+    const res = await tryFetch<Credit>(`${API_BASE}/api/clients/${clientId}/credits`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: credit.amount, interest: credit.interest, frequency: credit.frequency, cuotas: (credit as any).cuotas }) });
     return res;
   } catch (err: any) {
     // Si el error es por crédito activo, propagar el error
@@ -243,8 +243,8 @@ export async function updateClient(clientId: string, data: Partial<Cliente>): Pr
   }
 
   try {
-    console.log('🚀 Enviando PUT a:', `${API_BASE}/clients/${clientId}`);
-    const res = await tryFetch<Cliente>(`${API_BASE}/clients/${clientId}`, { 
+    console.log('🚀 Enviando PUT a:', `${API_BASE}/api/clients/${clientId}`);
+    const res = await tryFetch<Cliente>(`${API_BASE}/api/clients/${clientId}`, { 
       method: 'PUT', 
       headers: { 'Content-Type': 'application/json' }, 
       body: JSON.stringify(data) 
