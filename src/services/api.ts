@@ -28,7 +28,7 @@ type Cliente = {
   credits?: Credit[];
 };
 
-const API_BASE = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location) ? `${window.location.origin}/api` : '/api';
+const API_BASE = import.meta.env.VITE_API_URL;
 
 let isOnline = typeof navigator !== 'undefined' ? navigator.onLine : true;
 let sqliteReady = false;
