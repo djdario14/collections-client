@@ -32,7 +32,7 @@ export default function Login({ onLogin, theme, onToggleTheme }: Props) {
   React.useEffect(() => {
     async function checkIP() {
       try {
-        const response = await fetch(`${API_URL}/auth/check-ip`)
+        const response = await fetch(`${API_URL}/api/auth/check-ip`)
         const data = await response.json()
         
         console.log('Verificación IP:', data)
@@ -65,7 +65,7 @@ export default function Login({ onLogin, theme, onToggleTheme }: Props) {
       setLoading(true)
 
       try {
-        const response = await fetch(`${API_URL}/auth/login`, {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username: 'superadmin', password })
@@ -97,7 +97,7 @@ export default function Login({ onLogin, theme, onToggleTheme }: Props) {
     setLoading(true)
 
     try {
-      const response = await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
