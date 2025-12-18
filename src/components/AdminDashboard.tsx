@@ -168,7 +168,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
 
       {/* Header (se muestra/oculta con el menú) */}
       {showMenu && (
-        // ...encabezado eliminado...
+        null
       )}
 
       {/* Botón de menú flotante */}
