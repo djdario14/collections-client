@@ -26,6 +26,7 @@ export default function Login({ onLogin, theme, onToggleTheme }: Props) {
   const [isSuperAdminIP, setIsSuperAdminIP] = useState(false)
   const [checkingIP, setCheckingIP] = useState(true)
   const [selectedRole, setSelectedRole] = useState<'admin' | 'cobrador' | 'superadmin'>('admin')
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false)
 
   // Verificar IP al cargar el componente
   React.useEffect(() => {
@@ -372,6 +373,18 @@ export default function Login({ onLogin, theme, onToggleTheme }: Props) {
             </div>
           )}
 
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 18 }}>
+            <input
+              id="keep-logged-in"
+              type="checkbox"
+              checked={keepLoggedIn}
+              onChange={e => setKeepLoggedIn(e.target.checked)}
+              style={{ marginRight: 8, accentColor: '#3b82f6', width: 18, height: 18 }}
+            />
+            <label htmlFor="keep-logged-in" style={{ color: '#e6eef6', fontSize: 15, cursor: 'pointer', userSelect: 'none' }}>
+              Mantener sesión iniciada
+            </label>
+          </div>
           <button
             type="submit"
             disabled={loading}
