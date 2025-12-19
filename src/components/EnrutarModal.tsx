@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import '../enrutar-modal.css'
 import { getClients } from '../services/api'
 
 type Cliente = {

@@ -1,0 +1,114 @@
+.enrutar-modal {
+    max-width: 420px;
+    width: 100%;
+    margin: 40px auto;
+    background: var(--card);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    padding: 32px 28px 24px 28px;
+    border: 1px solid var(--border);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+@media (max-width: 600px) {
+    .enrutar-modal {
+        max-width: 98vw;
+        padding: 16px 4vw 16px 4vw;
+    }
+}
+
+.enrutar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.enrutar-info {
+    margin-bottom: 18px;
+    color: var(--text-secondary);
+}
+
+.clientes-ruta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.cliente-ruta-item {
+    display: flex;
+    align-items: center;
+    background: var(--glass);
+    border-radius: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    gap: 12px;
+}
+
+.ruta-orden {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 1.1em;
+    width: 28px;
+    text-align: center;
+}
+
+.ruta-info {
+    flex: 1;
+}
+
+.ruta-nombre {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.ruta-deuda {
+    color: #ffb86b;
+    font-size: 0.98em;
+}
+
+.ruta-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ruta-btn {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 1em;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ruta-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.enrutar-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-cancelar {
+    background: var(--glass);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn-guardar {
+    background: linear-gradient(90deg, #a855f7, #6ee7b7);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
