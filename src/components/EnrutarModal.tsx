@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getClients } from '../services/api'
 
-type Cobrador = {
-  id: number
-  username: string
-  nombre: string
-}
-
 type Cliente = {
   id: string
   nombre: string
@@ -19,27 +13,8 @@ type Props = {
   onRutaGuardada: () => void
 }
 
-export default function EnrutarModal({ onClose, onRutaGuardada }: Props) {
-  const [cobradores, setCobradores] = useState<Cobrador[]>([])
-  const [cobradorId, setCobradorId] = useState<string>('')
-    // Cargar cobradores al abrir modal
-    useEffect(() => {
-      async function loadCobradores() {
-        try {
-          const res = await fetch('/api/auth/users', {
-            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-          })
-          if (res.ok) {
-            const users = await res.json()
-            const misCobradores = users.filter((u: any) => u.role === 'cobrador')
-            setCobradores(misCobradores)
-          }
-        } catch (e) {
-          // opcional: manejar error
-        }
-      }
-      loadCobradores()
-    }, [])
+  // No selector de cobrador para el cobrador actual
+    // No cargar cobradores, solo clientes asignados
   const [clientes, setClientes] = useState<Cliente[]>([])
   const [loading, setLoading] = useState(true)
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
@@ -123,28 +98,19 @@ export default function EnrutarModal({ onClose, onRutaGuardada }: Props) {
     setClientes(newClientes)
   }
 
-  const guardarRuta = async () => {
-    if (!cobradorId) {
-      alert('Selecciona un cobrador para asignar la ruta.')
-      return
-    }
-    try {
-      for (const c of clientes) {
-        await fetch(`/api/auth/cobradores/${cobradorId}/assign`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          body: JSON.stringify({ clientId: c.id })
-        })
-      }
-      onRutaGuardada()
-      alert('✓ Ruta asignada exitosamente')
-      onClose()
-    } catch (e) {
-      alert('Error asignando la ruta')
-    }
+  const guardarRuta = () => {
+    // Guardar el orden en localStorage para el cobrador actual
+    const ruta = clientes.map((c, idx) => ({
+      orden: idx + 1,
+      clienteId: c.id,
+      nombre: c.nombre,
+      deuda: c.deuda
+    }))
+    localStorage.setItem('rutaClientes', JSON.stringify(ruta))
+    localStorage.setItem('rutaCreada', new Date().toISOString())
+    onRutaGuardada()
+    alert('✓ Ruta guardada exitosamente')
+    onClose()
   }
 
   return (
@@ -158,15 +124,6 @@ export default function EnrutarModal({ onClose, onRutaGuardada }: Props) {
         <div className="enrutar-info">
           <p>Arrastra o usa los botones para ordenar tus clientes en la ruta de cobro</p>
           <span className="total-clientes">{clientes.length} clientes con deuda pendiente</span>
-          <div style={{ marginTop: 16 }}>
-            <label style={{ color: '#fff', fontWeight: 600, marginRight: 8 }}>Cobrador:</label>
-            <select value={cobradorId} onChange={e => setCobradorId(e.target.value)} style={{ padding: 8, borderRadius: 6 }}>
-              <option value="">Selecciona un cobrador</option>
-              {cobradores.map(c => (
-                <option key={c.id} value={c.id}>{c.nombre} ({c.username})</option>
-              ))}
-            </select>
-          </div>
         </div>
 
         {loading ? (
