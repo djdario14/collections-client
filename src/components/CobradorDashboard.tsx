@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import EnrutarModal from './EnrutarModal'
 import CobroModal from './CobroModal'
 import NewClientModal from './NewClientModal'
 import CreditModal from './CreditModal'
@@ -33,6 +34,7 @@ type CobradorDashboardProps = {
 }
 
 export default function CobradorDashboard({ theme, onToggleTheme, user, onLogout }: CobradorDashboardProps) {
+    const [showEnrutar, setShowEnrutar] = useState(false)
   const [clients, setClients] = useState<Cliente[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -847,6 +849,13 @@ export default function CobradorDashboard({ theme, onToggleTheme, user, onLogout
             refresh()
           }}
           theme={theme}
+        />
+      )}
+      {showEnrutar && (
+        <EnrutarModal
+          onClose={() => setShowEnrutar(false)}
+          onRutaGuardada={refresh}
+          user={user}
         />
       )}
     </div>
