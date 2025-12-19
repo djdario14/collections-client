@@ -115,7 +115,7 @@ function EnrutarModal({ onClose, onRutaGuardada, user }: Props) {
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="enrutar-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal enrutar-modal" onClick={(e) => e.stopPropagation()}>
         <div className="enrutar-header">
           <h3>🗺️ Enrutar Clientes</h3>
           <button onClick={onClose} className="close-btn">✕</button>
