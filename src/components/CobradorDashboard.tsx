@@ -538,7 +538,7 @@ export default function CobradorDashboard({ theme, onToggleTheme, user, onLogout
               <button
                 onClick={() => {
                   setShowMenu(false)
-                  alert('Función de enrutamiento en desarrollo')
+                  setShowEnrutar(true)
                 }}
                 style={{
                   width: '100%',
