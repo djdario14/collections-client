@@ -749,5 +749,5 @@ import { getClients } from '../services/api';
         />
       </div>
     </div>
-	);
+  );
 }
