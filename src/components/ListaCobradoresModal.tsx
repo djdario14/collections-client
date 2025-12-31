@@ -21,6 +21,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
   const [cobradores, setCobradores] = useState<Cobrador[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedCobrador, setSelectedCobrador] = useState<Cobrador | null>(null)
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadCobradores()
@@ -32,15 +33,16 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
         headers: { 'Authorization': `Bearer ${adminToken}` }
       })
       if (res.ok) {
-        const cobradores = await res.json()
-        setCobradores(cobradores)
+        const cobradores = await res.json();
+        setCobradores(cobradores);
+        setError(null);
       } else {
-        console.error('Error al cargar cobradores:', res.status)
-        alert('Error al cargar la lista de cobradores')
+        setError('Error al cargar la lista de cobradores. Código: ' + res.status);
+        setCobradores([]);
       }
-    } catch (error) {
-      console.error('Error cargando cobradores:', error)
-      alert('Error de conexión al cargar cobradores')
+    } catch (err) {
+      setError('Error de conexión al cargar cobradores');
+      setCobradores([]);
     } finally {
       setLoading(false);
     }
@@ -54,9 +56,13 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
   return (
     <section style={{ maxWidth: 700, margin: '0 auto', padding: 32 }}>
       <h1 style={{ color: '#e6eef6', marginBottom: 24, fontSize: '2em', textAlign: 'left' }}>Tus Cobradores</h1>
-      {loading ? (
-        <p style={{ color: '#94a3b8' }}>Cargando cobradores...</p>
-      ) : (
+      {loading && <p style={{ color: '#94a3b8' }}>Cargando cobradores...</p>}
+      {error && (
+        <div style={{ color: 'red', background: '#1e293b', border: '1px solid #ef4444', borderRadius: 8, padding: 16, marginBottom: 16 }}>
+          {error}
+        </div>
+      )}
+      {!loading && !error && (
         <>
           {cobradores.map((cobrador) => (
             <div
