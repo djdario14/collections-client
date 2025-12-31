@@ -67,10 +67,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId, onS
     }
   }
 
-  function handleRequestDelete(id: number, nombre: string) {
-    // Implementar lógica de solicitud de eliminación aquí
-    alert(`Solicitar eliminación de cobrador: ${nombre}`);
-  }
+  // (Eliminada función duplicada handleRequestDelete)
 
   return (
     <section style={{ maxWidth: 700, margin: '0 auto', padding: 32 }}>
@@ -148,23 +145,6 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId, onS
                   </span>
                 </div>
               </div>
-              <button
-                onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.id, cobrador.nombre); }}
-                style={{
-                  background: 'rgba(239, 68, 68, 0.2)',
-                  border: '1px solid rgba(239, 68, 68, 0.4)',
-                  borderRadius: '8px',
-                  padding: '10px 16px',
-                  color: '#fca5a5',
-                  cursor: 'pointer',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  transition: 'all 0.3s'
-                }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'; }}
-              >
-                🗑️ Solicitar Eliminación
               <div style={{ position: 'relative' }}>
                 <button
                   onClick={e => { e.stopPropagation(); setMenuOpenId(menuOpenId === cobrador.id ? null : cobrador.id); setEditMenuOpenId(null); }}
@@ -244,10 +224,12 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId, onS
                   </div>
                 )}
               </div>
-              <p style={{ color: '#64748b', fontSize: '0.9em' }}>
-                Crea tu primer cobrador para comenzar a delegar rutas
-              </p>
-            </>
+            </div>
+          ))}
+          {cobradores.length === 0 && (
+            <p style={{ color: '#64748b', fontSize: '0.9em' }}>
+              Crea tu primer cobrador para comenzar a delegar rutas
+            </p>
           )}
         </>
       )}
@@ -257,5 +239,4 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId, onS
       )}
     </section>
   );
-}
 
