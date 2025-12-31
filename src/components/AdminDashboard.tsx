@@ -7,53 +7,12 @@ import EnrutarModal from './EnrutarModal'
 import SyncIndicator from './SyncIndicator'
 import { getClients } from '../services/api'
 
-type Cliente = {
-  id: string
-  nombre: string
-  deuda: number
-  vencimiento: string
-  payments?: any[]
-  credits?: any[]
-  createdAt?: string
-}
-
-type AdminDashboardProps = {
-  theme: 'dark' | 'light'
-  onToggleTheme: () => void
-  user: {
-    id: number
-    username: string
-    nombre: string
-    role: 'admin'
-    adminId: number | null
-    token: string
-    sessionId: string
-  }
-  onLogout: () => void
-}
-
-export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }: AdminDashboardProps) {
-  const [clients, setClients] = useState<Cliente[]>([])
-  const [loading, setLoading] = useState(true)
-  const [showResumen, setShowResumen] = useState(false)
-  const [showEnrutar, setShowEnrutar] = useState(false)
-  const [showCrearCobrador, setShowCrearCobrador] = useState(false)
-  const [showListaCobradores, setShowListaCobradores] = useState(true)
-  const [showDetail, setShowDetail] = useState(false)
-  const [selected, setSelected] = useState<Cliente | null>(null)
-  const [showMenu, setShowMenu] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [vistaCartera, setVistaCartera] = useState<'todos' | 'al-dia' | 'vencidos' | 'activos'>('todos')
-  const [gastosRefresh, setGastosRefresh] = useState(0)
-  const [rutaVersion, setRutaVersion] = useState(0)
-  const [currentDay, setCurrentDay] = useState(new Date().toISOString().split('T')[0])
-
-  useEffect(() => {
-    let mounted = true
-    const loadClients = () => {
-      getClients().then((list) => {
-        if (!mounted) return
-        setClients(list)
+        {/* Lista de Cobradores como sección principal */}
+        <div style={{ marginTop: 40 }}>
+          <ListaCobradoresModal
+            adminToken={user.token}
+            adminId={user.id}
+          />
         setLoading(false)
       })
     }
