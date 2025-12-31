@@ -147,82 +147,23 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId, onS
               </div>
               <div style={{ position: 'relative' }}>
                 <button
-                  onClick={e => { e.stopPropagation(); setMenuOpenId(menuOpenId === cobrador.id ? null : cobrador.id); setEditMenuOpenId(null); }}
+                  onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.id, cobrador.nombre); }}
                   style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#64748b',
-                    fontSize: 26,
+                    background: 'rgba(239, 68, 68, 0.2)',
+                    border: '1px solid rgba(239, 68, 68, 0.4)',
+                    borderRadius: '8px',
+                    padding: '10px 16px',
+                    color: '#fca5a5',
                     cursor: 'pointer',
-                    padding: '4px 10px',
-                    borderRadius: 8
+                    fontSize: '15px',
+                    fontWeight: 600,
+                    transition: 'all 0.3s'
                   }}
-                  title="Opciones"
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'; }}
                 >
-                  ⋮
+                  🗑️ Solicitar Eliminación
                 </button>
-                {menuOpenId === cobrador.id && (
-                  <div style={{
-                    position: 'absolute',
-                    right: 0,
-                    top: 36,
-                    background: '#1e293b',
-                    border: '1px solid #334155',
-                    borderRadius: 8,
-                    boxShadow: '0 2px 12px #0008',
-                    zIndex: 10,
-                    minWidth: 180
-                  }}>
-                    <button
-                      style={{
-                        display: 'block', width: '100%', background: 'none', border: 'none', color: '#e6eef6', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
-                      }}
-                      onClick={e => { e.stopPropagation(); setEditMenuOpenId(cobrador.id); setMenuOpenId(null); }}
-                    >
-                      ✏️ Editar
-                    </button>
-                    <button
-                      style={{
-                        display: 'block', width: '100%', background: 'none', border: 'none', color: '#fca5a5', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
-                      }}
-                      onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.id, cobrador.nombre); }}
-                    >
-                      🗑️ Solicitar Eliminación
-                    </button>
-                  </div>
-                )}
-                {editMenuOpenId === cobrador.id && (
-                  <div style={{
-                    position: 'absolute',
-                    right: 0,
-                    top: 36,
-                    background: '#1e293b',
-                    border: '1px solid #334155',
-                    borderRadius: 8,
-                    boxShadow: '0 2px 12px #0008',
-                    zIndex: 11,
-                    minWidth: 220
-                  }}>
-                    <button
-                      style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#e0e7ef', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                      onClick={e => { e.stopPropagation(); handleEditOption(cobrador.id, 'nombre'); }}
-                    >
-                      Cambiar nombre de ruta
-                    </button>
-                    <button
-                      style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#e0e7ef', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                      onClick={e => { e.stopPropagation(); handleEditOption(cobrador.id, 'password'); }}
-                    >
-                      Cambiar contraseña
-                    </button>
-                    <button
-                      style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#64748b', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                      onClick={e => { e.stopPropagation(); setEditMenuOpenId(null); }}
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           ))}
