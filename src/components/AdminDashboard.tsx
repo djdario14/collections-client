@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import MenuLateral from './MenuLateral';
+import ResumenRutasModal from './ResumenRutasModal';
 import CrearCobradorModal from './CrearCobradorModal';
 import ListaCobradoresModal from './ListaCobradoresModal';
 import CobradorDetailsPanel from './CobradorDetailsPanel';
@@ -21,9 +23,40 @@ type AdminDashboardProps = {
 export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }: AdminDashboardProps) {
   const [showCrearCobrador, setShowCrearCobrador] = useState(false);
   const [selectedCobrador, setSelectedCobrador] = useState(null as null | { id: number, nombre: string });
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [showResumenRutas, setShowResumenRutas] = useState(false);
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)', position: 'relative' }}>
+      {/* Botón menú 3 rayas */}
+      <button
+        onClick={() => setMenuOpen(true)}
+        style={{
+          position: 'fixed',
+          top: 18,
+          left: 18,
+          zIndex: 1100,
+          background: 'none',
+          border: 'none',
+          fontSize: 32,
+          cursor: 'pointer',
+          color: 'var(--text-primary)',
+          borderRadius: 8,
+          padding: 4,
+        }}
+        aria-label="Abrir menú"
+      >
+        <span style={{ fontWeight: 700 }}>&#9776;</span>
+      </button>
+      <MenuLateral
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onToggleTheme={onToggleTheme}
+        onLogout={onLogout}
+        onResumenRutas={() => { setShowResumenRutas(true); setMenuOpen(false); }}
+        theme={theme}
+      />
+      {/* Contenido principal */}
       <div style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
         {!selectedCobrador ? (
           <>
@@ -65,6 +98,10 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
           onSuccess={() => setShowCrearCobrador(false)}
           adminToken={user.token}
         />
+      )}
+      {/* Modal de resumen de rutas con gráfico lineal */}
+      {showResumenRutas && (
+        <ResumenRutasModal onClose={() => setShowResumenRutas(false)} adminId={user.id} />
       )}
     </div>
   );
