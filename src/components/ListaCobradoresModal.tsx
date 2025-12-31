@@ -137,7 +137,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
         {selectedCobrador && (
           <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
         )}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+// (eliminado div huérfano que causaba error de sintaxis)
             {cobradores.map((cobrador) => (
               <div 
                 key={cobrador.id}
