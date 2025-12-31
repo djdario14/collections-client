@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import CrearCobradorModal from './CrearCobradorModal';
 import ListaCobradoresModal from './ListaCobradoresModal';
-
-// Nuevo: importar el detalle del cobrador
-import AdminDetailsModal from './AdminDetailsModal';
-
-// Solo se requiere el tipo de props
+import CobradorDetailsPanel from './CobradorDetailsPanel';
 
 type AdminDashboardProps = {
   theme: 'dark' | 'light';
@@ -48,7 +44,6 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
             >
               ➕ Crear Cobrador
             </button>
-            {/* Pasar función para seleccionar cobrador */}
             <ListaCobradoresModal 
               adminToken={user.token} 
               adminId={user.id} 
@@ -56,21 +51,12 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
             />
           </>
         ) : (
-          <>
-            <button
-              onClick={() => setSelectedCobrador(null)}
-              style={{ marginBottom: 24, background: 'none', border: 'none', color: '#3b82f6', fontWeight: 600, cursor: 'pointer', fontSize: '1em' }}
-            >
-              ← Volver a la lista de cobradores
-            </button>
-            {/* Mostrar detalle del cobrador seleccionado */}
-            <AdminDetailsModal 
-              adminId={selectedCobrador.id} 
-              token={user.token} 
-              onClose={() => setSelectedCobrador(null)} 
-              modoSoloCobrador={true} // para mostrar solo el detalle del cobrador
-            />
-          </>
+          <CobradorDetailsPanel 
+            cobradorId={selectedCobrador.id} 
+            nombre={selectedCobrador.nombre}
+            token={user.token}
+            onBack={() => setSelectedCobrador(null)}
+          />
         )}
       </div>
       {showCrearCobrador && (
