@@ -38,7 +38,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
   const [showResumen, setShowResumen] = useState(false)
   const [showEnrutar, setShowEnrutar] = useState(false)
   const [showCrearCobrador, setShowCrearCobrador] = useState(false)
-  const [showListaCobradores, setShowListaCobradores] = useState(false)
+  const [showListaCobradores, setShowListaCobradores] = useState(true)
   const [showDetail, setShowDetail] = useState(false)
   const [selected, setSelected] = useState<Cliente | null>(null)
   const [showMenu, setShowMenu] = useState(false)
@@ -348,69 +348,41 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
           gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
           gap: 16
         }}>
-          {/* Botón Crear Cobrador */}
-          <button
-            onClick={() => setShowCrearCobrador(true)}
-            style={{
-              background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(22, 163, 74, 0.2) 100%)',
-              border: '1px solid rgba(34, 197, 94, 0.4)',
-              borderRadius: 12,
-              padding: '24px',
-              cursor: 'pointer',
-              color: 'var(--text-primary)',
-              fontSize: '1em',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 12,
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(34, 197, 94, 0.3)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-          >
-            <span style={{ fontSize: '2.5em' }}>➕</span>
-            <span style={{ fontWeight: 600 }}>Crear Cobrador</span>
-            <span style={{ fontSize: '0.85em', opacity: 0.7 }}>Agregar nuevo cobrador a tu equipo</span>
-          </button>
+          {/* Botón Crear Cobrador SIEMPRE visible arriba */}
+          <div style={{ marginBottom: 16 }}>
+            <button
+              onClick={() => setShowCrearCobrador(true)}
+              style={{
+                background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(22, 163, 74, 0.2) 100%)',
+                border: '1px solid rgba(34, 197, 94, 0.4)',
+                borderRadius: 12,
+                padding: '24px',
+                cursor: 'pointer',
+                color: 'var(--text-primary)',
+                fontSize: '1em',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 12,
+                transition: 'all 0.3s',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(34, 197, 94, 0.3)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+            >
+              <span style={{ fontSize: '2.5em' }}>➕</span>
+              <span style={{ fontWeight: 600 }}>Crear Cobrador</span>
+              <span style={{ fontSize: '0.85em', opacity: 0.7 }}>Agregar nuevo cobrador a tu equipo</span>
+            </button>
+          </div>
 
-          {/* Botón Mis Cobradores */}
-          <button
-            onClick={() => setShowListaCobradores(true)}
-            style={{
-              background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%)',
-              border: '1px solid rgba(59, 130, 246, 0.4)',
-              borderRadius: 12,
-              padding: '24px',
-              cursor: 'pointer',
-              color: 'var(--text-primary)',
-              fontSize: '1em',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 12,
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(59, 130, 246, 0.3)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-          >
-            <span style={{ fontSize: '2.5em' }}>👥</span>
-            <span style={{ fontWeight: 600 }}>Mis Cobradores</span>
-            <span style={{ fontSize: '0.85em', opacity: 0.7 }}>Ver y administrar cobradores</span>
-          </button>
+          {/* La lista de cobradores se muestra automáticamente */}
 
           {/* Botón Asignar Rutas solo para superadmin */}
           {user.role !== 'admin' && (
