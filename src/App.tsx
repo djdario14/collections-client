@@ -26,25 +26,18 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('theme', theme)
   }, [theme])
 
   useEffect(() => {
-    // Validar sesión existente en sessionStorage o localStorage
+    // Guardar sesión en localStorage SIEMPRE (para restaurar tras recarga)
+    // Pero borrar al cerrar la pestaña/ventana
     const initAuth = async () => {
-      let token = sessionStorage.getItem('token')
-      let sessionId = sessionStorage.getItem('sessionId')
-      // Si no hay sesión en sessionStorage, buscar en localStorage
-      if (!token) {
-        token = localStorage.getItem('token')
-        sessionId = localStorage.getItem('sessionId')
-        if (token && sessionId) {
-          sessionStorage.setItem('token', token)
-          sessionStorage.setItem('sessionId', sessionId)
-        }
-      }
+      let token = localStorage.getItem('token')
+      let sessionId = localStorage.getItem('sessionId')
       if (!token) {
         setLoading(false)
         return
@@ -61,15 +54,11 @@ export default function App() {
           const userData = await res.json()
           setUser({ ...userData, token, sessionId })
         } else {
-          sessionStorage.removeItem('token')
-          sessionStorage.removeItem('sessionId')
           localStorage.removeItem('token')
           localStorage.removeItem('sessionId')
         }
       } catch (error) {
         console.error('Error validando sesión:', error)
-        sessionStorage.removeItem('token')
-        sessionStorage.removeItem('sessionId')
         localStorage.removeItem('token')
         localStorage.removeItem('sessionId')
       } finally {
@@ -77,6 +66,16 @@ export default function App() {
       }
     }
     initAuth()
+
+    // Borrar sesión al cerrar la pestaña/ventana
+    const handleBeforeUnload = () => {
+      localStorage.removeItem('token')
+      localStorage.removeItem('sessionId')
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
   }, [])
 
   const toggleTheme = () => {
@@ -85,13 +84,8 @@ export default function App() {
 
   const handleLogin = (userData: User, keepLoggedIn: boolean) => {
     setUser(userData)
-    sessionStorage.setItem('token', userData.token)
-    sessionStorage.setItem('sessionId', userData.sessionId)
-    if (keepLoggedIn) {
-      localStorage.setItem('token', userData.token)
-      localStorage.setItem('sessionId', userData.sessionId)
-    }
-    // No borres localStorage si no se marcó la opción, solo no lo uses.
+    localStorage.setItem('token', userData.token)
+    localStorage.setItem('sessionId', userData.sessionId)
   }
 
   const handleLogout = async () => {
