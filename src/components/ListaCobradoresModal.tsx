@@ -131,7 +131,6 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                 </p>
               </>
             )}
-          </div>
         )}
         {/* Modal de detalles de ruta del cobrador */}
         {selectedCobrador && (
