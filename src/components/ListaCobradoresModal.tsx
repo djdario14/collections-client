@@ -80,188 +80,160 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId, onS
       )}
       {!loading && !error && (
         <>
-          {cobradores.map((cobrador) => (
-            <div
-              key={cobrador.id}
-              style={{
-                background: 'rgba(15, 23, 42, 0.5)',
-                border: '1px solid rgba(34, 197, 94, 0.3)',
-                borderRadius: '12px',
-                padding: '20px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                cursor: 'pointer',
-                transition: 'background 0.2s',
-                marginBottom: 18
-              }}
-              onClick={() => {
-                if (onSelectCobrador) {
-                  onSelectCobrador({ id: cobrador.id, nombre: cobrador.nombre })
-                } else {
-                  setSelectedCobrador(cobrador)
-                }
-              }}
-              title="Ver detalles de la ruta"
-            >
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '1.5em' }}>🎯</span>
-                <>
-                  {cobradores.length > 0 && cobradores.map((cobrador) => (
-                    <div
-                      key={cobrador.id}
-                      style={{
-                        background: 'rgba(15, 23, 42, 0.5)',
-                        border: '1px solid rgba(34, 197, 94, 0.3)',
-                        borderRadius: '12px',
-                        padding: '20px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                        transition: 'background 0.2s',
-                        marginBottom: 18
-                      }}
-                      onClick={() => {
-                        if (onSelectCobrador) {
-                          onSelectCobrador({ id: cobrador.id, nombre: cobrador.nombre })
-                        } else {
-                          setSelectedCobrador(cobrador)
-                        }
-                      }}
-                      title="Ver detalles de la ruta"
-                    >
-                      <div style={{ flex: 1 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '1.5em' }}>🎯</span>
-                          <div>
-                            <h3 style={{
-                              color: '#e6eef6',
-                              margin: 0,
-                              fontSize: '1.2em',
-                              fontWeight: 600
-                            }}>
-                              {cobrador.nombre}
-                            </h3>
-                            <p style={{
-                              color: '#94a3b8',
-                              margin: '4px 0 0 0',
-                              fontSize: '1em'
-                            }}>
-                              @{cobrador.username}
-                            </p>
-                          </div>
-                        </div>
-                        <div style={{
-                          display: 'flex',
-                          gap: '12px',
-                          marginTop: '8px',
-                          fontSize: '0.95em'
-                        }}>
-                          <span style={{
-                            background: 'rgba(34, 197, 94, 0.2)',
-                            border: '1px solid rgba(34, 197, 94, 0.4)',
-                            borderRadius: '12px',
-                            padding: '4px 10px',
-                            color: '#4ade80'
-                          }}>
-                            Cobrador Activo
-                          </span>
-                          <span style={{ color: '#64748b' }}>
-                            Desde {new Date(cobrador.createdAt).toLocaleDateString()}
-                          </span>
-                        </div>
-                      </div>
-                      <div style={{ position: 'relative' }}>
-                        <button
-                          onClick={e => { e.stopPropagation(); setMenuOpenId(menuOpenId === cobrador.id ? null : cobrador.id); setEditMenuOpenId(null); }}
-                          style={{
-                            background: 'none',
-                            border: 'none',
-                            color: '#64748b',
-                            fontSize: 26,
-                            cursor: 'pointer',
-                            padding: '4px 10px',
-                            borderRadius: 8
-                          }}
-                          title="Opciones"
-                        >
-                          ⋮
-                        </button>
-                        {menuOpenId === cobrador.id && (
-                          <div style={{
-                            position: 'absolute',
-                            right: 0,
-                            top: 36,
-                            background: '#1e293b',
-                            border: '1px solid #334155',
-                            borderRadius: 8,
-                            boxShadow: '0 2px 12px #0008',
-                            zIndex: 10,
-                            minWidth: 180
-                          }}>
-                            <button
-                              style={{
-                                display: 'block', width: '100%', background: 'none', border: 'none', color: '#e6eef6', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
-                              }}
-                              onClick={e => { e.stopPropagation(); setEditMenuOpenId(cobrador.id); setMenuOpenId(null); }}
-                            >
-                              ✏️ Editar
-                            </button>
-                            <button
-                              style={{
-                                display: 'block', width: '100%', background: 'none', border: 'none', color: '#fca5a5', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
-                              }}
-                              onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.id, cobrador.nombre); }}
-                            >
-                              🗑️ Solicitar Eliminación
-                            </button>
-                          </div>
-                        )}
-                        {editMenuOpenId === cobrador.id && (
-                          <div style={{
-                            position: 'absolute',
-                            right: 0,
-                            top: 36,
-                            background: '#1e293b',
-                            border: '1px solid #334155',
-                            borderRadius: 8,
-                            boxShadow: '0 2px 12px #0008',
-                            zIndex: 11,
-                            minWidth: 220
-                          }}>
-                            <button
-                              style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#e0e7ef', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                              onClick={e => { e.stopPropagation(); handleEditOption(cobrador.id, 'nombre'); }}
-                            >
-                              Cambiar nombre de ruta
-                            </button>
-                            <button
-                              style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#e0e7ef', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                              onClick={e => { e.stopPropagation(); handleEditOption(cobrador.id, 'password'); }}
-                            >
-                              Cambiar contraseña
-                            </button>
-                            <button
-                              style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#64748b', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                              onClick={e => { e.stopPropagation(); setEditMenuOpenId(null); }}
-                            >
-                              Cancelar
-                            </button>
-                          </div>
-                        )}
-                      </div>
+          {cobradores.length > 0 ? (
+            cobradores.map((cobrador) => (
+              <div
+                key={cobrador.id}
+                style={{
+                  background: 'rgba(15, 23, 42, 0.5)',
+                  border: '1px solid rgba(34, 197, 94, 0.3)',
+                  borderRadius: '12px',
+                  padding: '20px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s',
+                  marginBottom: 18
+                }}
+                onClick={() => {
+                  if (onSelectCobrador) {
+                    onSelectCobrador({ id: cobrador.id, nombre: cobrador.nombre })
+                  } else {
+                    setSelectedCobrador(cobrador)
+                  }
+                }}
+                title="Ver detalles de la ruta"
+              >
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '1.5em' }}>🎯</span>
+                    <div>
+                      <h3 style={{
+                        color: '#e6eef6',
+                        margin: 0,
+                        fontSize: '1.2em',
+                        fontWeight: 600
+                      }}>
+                        {cobrador.nombre}
+                      </h3>
+                      <p style={{
+                        color: '#94a3b8',
+                        margin: '4px 0 0 0',
+                        fontSize: '1em'
+                      }}>
+                        @{cobrador.username}
+                      </p>
                     </div>
-                  ))}
-                  {cobradores.length === 0 && (
-
-                    <p style={{ color: '#64748b', fontSize: '0.9em' }}>
-                      Crea tu primer cobrador para comenzar a delegar rutas
-                    </p>
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    gap: '12px',
+                    marginTop: '8px',
+                    fontSize: '0.95em'
+                  }}>
+                    <span style={{
+                      background: 'rgba(34, 197, 94, 0.2)',
+                      border: '1px solid rgba(34, 197, 94, 0.4)',
+                      borderRadius: '12px',
+                      padding: '4px 10px',
+                      color: '#4ade80'
+                    }}>
+                      Cobrador Activo
+                    </span>
+                    <span style={{ color: '#64748b' }}>
+                      Desde {new Date(cobrador.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+                <div style={{ position: 'relative' }}>
+                  <button
+                    onClick={e => { e.stopPropagation(); setMenuOpenId(menuOpenId === cobrador.id ? null : cobrador.id); setEditMenuOpenId(null); }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#64748b',
+                      fontSize: 26,
+                      cursor: 'pointer',
+                      padding: '4px 10px',
+                      borderRadius: 8
+                    }}
+                    title="Opciones"
+                  >
+                    ⋮
+                  </button>
+                  {menuOpenId === cobrador.id && (
+                    <div style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 36,
+                      background: '#1e293b',
+                      border: '1px solid #334155',
+                      borderRadius: 8,
+                      boxShadow: '0 2px 12px #0008',
+                      zIndex: 10,
+                      minWidth: 180
+                    }}>
+                      <button
+                        style={{
+                          display: 'block', width: '100%', background: 'none', border: 'none', color: '#e6eef6', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
+                        }}
+                        onClick={e => { e.stopPropagation(); setEditMenuOpenId(cobrador.id); setMenuOpenId(null); }}
+                      >
+                        ✏️ Editar
+                      </button>
+                      <button
+                        style={{
+                          display: 'block', width: '100%', background: 'none', border: 'none', color: '#fca5a5', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
+                        }}
+                        onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.id, cobrador.nombre); }}
+                      >
+                        🗑️ Solicitar Eliminación
+                      </button>
+                    </div>
                   )}
-                </>
-              )}
+                  {editMenuOpenId === cobrador.id && (
+                    <div style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 36,
+                      background: '#1e293b',
+                      border: '1px solid #334155',
+                      borderRadius: 8,
+                      boxShadow: '0 2px 12px #0008',
+                      zIndex: 11,
+                      minWidth: 220
+                    }}>
+                      <button
+                        style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#e0e7ef', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
+                        onClick={e => { e.stopPropagation(); handleEditOption(cobrador.id, 'nombre'); }}
+                      >
+                        Cambiar nombre de ruta
+                      </button>
+                      <button
+                        style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#e0e7ef', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
+                        onClick={e => { e.stopPropagation(); handleEditOption(cobrador.id, 'password'); }}
+                      >
+                        Cambiar contraseña
+                      </button>
+                      <button
+                        style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#64748b', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
+                        onClick={e => { e.stopPropagation(); setEditMenuOpenId(null); }}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p style={{ color: '#64748b', fontSize: '0.9em' }}>
+              Crea tu primer cobrador para comenzar a delegar rutas
+            </p>
+          )}
+        </>
+      )}
       {/* Modal de detalles de ruta del cobrador */}
       {selectedCobrador && !onSelectCobrador && (
         <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
