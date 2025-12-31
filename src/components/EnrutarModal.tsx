@@ -19,6 +19,7 @@ type Props = {
 }
 
 function EnrutarModal({ onClose, onRutaGuardada, user }: Props) {
+  const API_BASE = import.meta.env.VITE_API_URL;
   const [clientes, setClientes] = useState<Cliente[]>([])
   const [loading, setLoading] = useState(true)
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
@@ -94,7 +95,7 @@ function EnrutarModal({ onClose, onRutaGuardada, user }: Props) {
     const ruta = clientes.map((c, idx) => ({ clienteId: c.id, orden: idx + 1 }))
     try {
       if (user && user.id && user.token) {
-        const res = await fetch(`/api/auth/cobradores/${user.id}/ruta`, {
+        const res = await fetch(`${API_BASE}/api/auth/cobradores/${user.id}/ruta`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
