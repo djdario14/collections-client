@@ -42,97 +42,119 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
       console.error('Error cargando cobradores:', error)
       alert('Error de conexión al cargar cobradores')
     } finally {
-            {cobradores.map((cobrador) => (
-              <div
-                key={cobrador.id}
-                style={{
-                  background: 'rgba(15, 23, 42, 0.5)',
-                  border: '1px solid rgba(34, 197, 94, 0.3)',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  cursor: 'pointer',
-                  transition: 'background 0.2s',
-                }}
-                onClick={() => setSelectedCobrador(cobrador)}
-                title="Ver detalles de la ruta"
-              >
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '1.5em' }}>🎯</span>
-                    <div>
-                      <h3 style={{
-                        color: '#e6eef6',
-                        margin: 0,
-                        fontSize: '1.1em',
-                        fontWeight: 600
-                      }}>
-                        {cobrador.nombre}
-                      </h3>
-                      <p style={{
-                        color: '#94a3b8',
-                        margin: '4px 0 0 0',
-                        fontSize: '0.9em'
-                      }}>
-                        @{cobrador.username}
-                      </p>
-                    </div>
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    gap: '12px',
-                    marginTop: '8px',
-                    fontSize: '0.85em'
-                  }}>
-                    <span style={{
-                      background: 'rgba(34, 197, 94, 0.2)',
-                      border: '1px solid rgba(34, 197, 94, 0.4)',
-                      borderRadius: '12px',
-                      padding: '4px 10px',
-                      color: '#4ade80'
+      setLoading(false);
+    }
+  }
+
+  function handleRequestDelete(id: number, nombre: string) {
+    // Implementar lógica de solicitud de eliminación aquí
+    alert(`Solicitar eliminación de cobrador: ${nombre}`);
+  }
+
+  return (
+    <div style={{ padding: 24, background: '#1e293b', borderRadius: 16, minWidth: 350, maxWidth: 500 }}>
+      <button onClick={onClose} style={{ float: 'right', background: 'none', border: 'none', color: '#fff', fontSize: 20, cursor: 'pointer' }}>✖</button>
+      <h2 style={{ color: '#e6eef6', marginBottom: 16 }}>Tus Cobradores</h2>
+      {loading ? (
+        <p style={{ color: '#94a3b8' }}>Cargando cobradores...</p>
+      ) : (
+        <>
+          {cobradores.map((cobrador) => (
+            <div
+              key={cobrador.id}
+              style={{
+                background: 'rgba(15, 23, 42, 0.5)',
+                border: '1px solid rgba(34, 197, 94, 0.3)',
+                borderRadius: '12px',
+                padding: '16px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                cursor: 'pointer',
+                transition: 'background 0.2s',
+                marginBottom: 12
+              }}
+              onClick={() => setSelectedCobrador(cobrador)}
+              title="Ver detalles de la ruta"
+            >
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '1.5em' }}>🎯</span>
+                  <div>
+                    <h3 style={{
+                      color: '#e6eef6',
+                      margin: 0,
+                      fontSize: '1.1em',
+                      fontWeight: 600
                     }}>
-                      Cobrador Activo
-                    </span>
-                    <span style={{ color: '#64748b' }}>
-                      Desde {new Date(cobrador.createdAt).toLocaleDateString()}
-                    </span>
+                      {cobrador.nombre}
+                    </h3>
+                    <p style={{
+                      color: '#94a3b8',
+                      margin: '4px 0 0 0',
+                      fontSize: '0.9em'
+                    }}>
+                      @{cobrador.username}
+                    </p>
                   </div>
                 </div>
-
-                <button
-                  onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.id, cobrador.nombre); }}
-                  style={{
-                    background: 'rgba(239, 68, 68, 0.2)',
-                    border: '1px solid rgba(239, 68, 68, 0.4)',
-                    borderRadius: '8px',
-                    padding: '10px 16px',
-                    color: '#fca5a5',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    transition: 'all 0.3s'
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'; }}
-                >
-                  🗑️ Solicitar Eliminación
-                </button>
+                <div style={{
+                  display: 'flex',
+                  gap: '12px',
+                  marginTop: '8px',
+                  fontSize: '0.85em'
+                }}>
+                  <span style={{
+                    background: 'rgba(34, 197, 94, 0.2)',
+                    border: '1px solid rgba(34, 197, 94, 0.4)',
+                    borderRadius: '12px',
+                    padding: '4px 10px',
+                    color: '#4ade80'
+                  }}>
+                    Cobrador Activo
+                  </span>
+                  <span style={{ color: '#64748b' }}>
+                    Desde {new Date(cobrador.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
               </div>
-            ))}
-            {cobradores.length === 0 && (
-              <>
-                <p style={{ color: '#94a3b8', fontSize: '1.1em', marginBottom: '8px' }}>
-                  No tienes cobradores registrados
-                </p>
-                <p style={{ color: '#64748b', fontSize: '0.9em' }}>
-                  Crea tu primer cobrador para comenzar a delegar rutas
-                </p>
-              </>
-            )}
-          {/* Modal de detalles de ruta del cobrador */}
-          {selectedCobrador && (
-            <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
+              <button
+                onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.id, cobrador.nombre); }}
+                style={{
+                  background: 'rgba(239, 68, 68, 0.2)',
+                  border: '1px solid rgba(239, 68, 68, 0.4)',
+                  borderRadius: '8px',
+                  padding: '10px 16px',
+                  color: '#fca5a5',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  transition: 'all 0.3s'
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'; }}
+              >
+                🗑️ Solicitar Eliminación
+              </button>
+            </div>
+          ))}
+          {cobradores.length === 0 && (
+            <>
+              <p style={{ color: '#94a3b8', fontSize: '1.1em', marginBottom: '8px' }}>
+                No tienes cobradores registrados
+              </p>
+              <p style={{ color: '#64748b', fontSize: '0.9em' }}>
+                Crea tu primer cobrador para comenzar a delegar rutas
+              </p>
+            </>
           )}
+        </>
+      )}
+      {/* Modal de detalles de ruta del cobrador */}
+      {selectedCobrador && (
+        <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
+      )}
+    </div>
+  );
+}
 
