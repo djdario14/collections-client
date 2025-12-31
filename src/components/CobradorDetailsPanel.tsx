@@ -31,14 +31,14 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
       setError(null);
       try {
         // Corregido: endpoint correcto para clientes asignados
-        const resClientes = await fetch(`${API_BASE}/api/cobradores/${cobradorId}/clients`, {
+        const resClientes = await fetch(`${API_BASE}/api/auth/cobradores/${cobradorId}/clients`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const clientesData = resClientes.ok ? await resClientes.json() : [];
         setClientes(clientesData);
 
         // Obtener resumen/caja del cobrador (mantener endpoint actual)
-        const resResumen = await fetch(`${API_BASE}/api/cobrador/${cobradorId}/resumen`, {
+        const resResumen = await fetch(`${API_BASE}/api/auth/cobrador/${cobradorId}/resumen`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const resumenData = resResumen.ok ? await resResumen.json() : null;
