@@ -137,7 +137,6 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
           )}
         </div>
       )
-                        color: '#e6eef6', 
                         margin: 0,
                         fontSize: '1.1em',
                         fontWeight: 600
