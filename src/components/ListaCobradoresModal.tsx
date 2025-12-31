@@ -12,9 +12,10 @@ type Cobrador = {
 type Props = {
   onClose: () => void
   adminToken: string
+  adminId: number
 }
 
-export default function ListaCobradoresModal({ onClose, adminToken }: Props) {
+export default function ListaCobradoresModal({ onClose, adminToken, adminId }: Props) {
   const [cobradores, setCobradores] = useState<Cobrador[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -24,15 +25,12 @@ export default function ListaCobradoresModal({ onClose, adminToken }: Props) {
 
   async function loadCobradores() {
     try {
-      const res = await fetch('/api/auth/users', {
+      const res = await fetch(`/api/auth/admin/${adminId}/cobradores`, {
         headers: { 'Authorization': `Bearer ${adminToken}` }
       })
-      
       if (res.ok) {
-        const users = await res.json()
-        // Filtrar solo cobradores que pertenecen a este admin
-        const misCobradores = users.filter((u: any) => u.role === 'cobrador')
-        setCobradores(misCobradores)
+        const cobradores = await res.json()
+        setCobradores(cobradores)
       } else {
         console.error('Error al cargar cobradores:', res.status)
         alert('Error al cargar la lista de cobradores')
