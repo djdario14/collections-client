@@ -826,6 +826,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
         <ListaCobradoresModal
           onClose={() => setShowListaCobradores(false)}
           adminToken={user.token}
+          adminId={user.id}
         />
       )}
     </div>
