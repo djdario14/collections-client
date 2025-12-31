@@ -15,9 +15,10 @@ type Props = {
   onClose: () => void
   adminToken: string
   adminId: number
+  onSelectCobrador?: (cobrador: { id: number, nombre: string }) => void
 }
 
-export default function ListaCobradoresModal({ onClose, adminToken, adminId }: Props) {
+export default function ListaCobradoresModal({ onClose, adminToken, adminId, onSelectCobrador }: Props) {
   const [cobradores, setCobradores] = useState<Cobrador[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedCobrador, setSelectedCobrador] = useState<Cobrador | null>(null)
@@ -79,7 +80,13 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                 transition: 'background 0.2s',
                 marginBottom: 18
               }}
-              onClick={() => setSelectedCobrador(cobrador)}
+              onClick={() => {
+                if (onSelectCobrador) {
+                  onSelectCobrador({ id: cobrador.id, nombre: cobrador.nombre })
+                } else {
+                  setSelectedCobrador(cobrador)
+                }
+              }}
               title="Ver detalles de la ruta"
             >
               <div style={{ flex: 1 }}>
@@ -156,7 +163,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
         </>
       )}
       {/* Modal de detalles de ruta del cobrador */}
-      {selectedCobrador && (
+      {selectedCobrador && !onSelectCobrador && (
         <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
       )}
     </section>
