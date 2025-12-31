@@ -121,17 +121,18 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                 </button>
               </div>
             ))}
-                    {/* Modal de detalles de ruta del cobrador */}
-                    {selectedCobrador && (
-                      <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
-                    )}
               No tienes cobradores registrados
             </p>
             <p style={{ color: '#64748b', fontSize: '0.9em' }}>
               Crea tu primer cobrador para comenzar a delegar rutas
             </p>
           </div>
-        ) : (
+        )}
+        {/* Modal de detalles de ruta del cobrador */}
+        {selectedCobrador && (
+          <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
+        )}
+        {cobradores.length > 0 && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {cobradores.map((cobrador) => (
               <div 
