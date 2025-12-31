@@ -90,10 +90,8 @@ export default function App() {
     if (keepLoggedIn) {
       localStorage.setItem('token', userData.token)
       localStorage.setItem('sessionId', userData.sessionId)
-    } else {
-      localStorage.removeItem('token')
-      localStorage.removeItem('sessionId')
     }
+    // No borres localStorage si no se marcó la opción, solo no lo uses.
   }
 
   const handleLogout = async () => {
