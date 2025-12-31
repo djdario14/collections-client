@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+const API_BASE = import.meta.env.VITE_API_URL;
 
 type Cobrador = {
   id: number
@@ -25,7 +26,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
 
   async function loadCobradores() {
     try {
-      const res = await fetch(`/api/auth/admin/${adminId}/cobradores`, {
+      const res = await fetch(`${API_BASE}/api/auth/admin/${adminId}/cobradores`, {
         headers: { 'Authorization': `Bearer ${adminToken}` }
       })
       if (res.ok) {
