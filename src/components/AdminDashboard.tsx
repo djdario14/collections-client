@@ -348,6 +348,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
           gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
           gap: 16
         }}>
+          {/* Botón Crear Cobrador */}
           <button
             onClick={() => setShowCrearCobrador(true)}
             style={{
@@ -379,6 +380,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
             <span style={{ fontSize: '0.85em', opacity: 0.7 }}>Agregar nuevo cobrador a tu equipo</span>
           </button>
 
+          {/* Botón Mis Cobradores */}
           <button
             onClick={() => setShowListaCobradores(true)}
             style={{
@@ -410,37 +412,41 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
             <span style={{ fontSize: '0.85em', opacity: 0.7 }}>Ver y administrar cobradores</span>
           </button>
 
-          <button
-            onClick={() => setShowEnrutar(true)}
-            style={{
-              background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(219, 39, 119, 0.2) 100%)',
-              border: '1px solid rgba(236, 72, 153, 0.4)',
-              borderRadius: 12,
-              padding: '24px',
-              cursor: 'pointer',
-              color: 'var(--text-primary)',
-              fontSize: '1em',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 12,
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)'
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(236, 72, 153, 0.3)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'
-            }}
-          >
-            <span style={{ fontSize: '2.5em' }}>🗺️</span>
-            <span style={{ fontWeight: 600 }}>Asignar Rutas</span>
-            <span style={{ fontSize: '0.85em', opacity: 0.7 }}>Distribuir clientes a cobradores</span>
-          </button>
+          {/* Botón Asignar Rutas solo para superadmin */}
+          {user.role !== 'admin' && (
+            <button
+              onClick={() => setShowEnrutar(true)}
+              style={{
+                background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(219, 39, 119, 0.2) 100%)',
+                border: '1px solid rgba(236, 72, 153, 0.4)',
+                borderRadius: 12,
+                padding: '24px',
+                cursor: 'pointer',
+                color: 'var(--text-primary)',
+                fontSize: '1em',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 12,
+                transition: 'all 0.3s',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(236, 72, 153, 0.3)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+            >
+              <span style={{ fontSize: '2.5em' }}>🗺️</span>
+              <span style={{ fontWeight: 600 }}>Asignar Rutas</span>
+              <span style={{ fontSize: '0.85em', opacity: 0.7 }}>Distribuir clientes a cobradores</span>
+            </button>
+          )}
 
+          {/* Botón Ver Resumen */}
           <button
             onClick={() => setShowResumen(true)}
             style={{
