@@ -121,11 +121,16 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                 </button>
               </div>
             ))}
-              No tienes cobradores registrados
-            </p>
-            <p style={{ color: '#64748b', fontSize: '0.9em' }}>
-              Crea tu primer cobrador para comenzar a delegar rutas
-            </p>
+            {cobradores.length === 0 && (
+              <>
+                <p style={{ color: '#94a3b8', fontSize: '1.1em', marginBottom: '8px' }}>
+                  No tienes cobradores registrados
+                </p>
+                <p style={{ color: '#64748b', fontSize: '0.9em' }}>
+                  Crea tu primer cobrador para comenzar a delegar rutas
+                </p>
+              </>
+            )}
           </div>
         )}
         {/* Modal de detalles de ruta del cobrador */}
