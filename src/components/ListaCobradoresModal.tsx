@@ -137,7 +137,6 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
         {selectedCobrador && (
           <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
         )}
-        {cobradores.length > 0 && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {cobradores.map((cobrador) => (
               <div 
