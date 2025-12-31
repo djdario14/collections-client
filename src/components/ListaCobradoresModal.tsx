@@ -136,4 +136,3 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
             <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
           )}
         </div>
-      )
