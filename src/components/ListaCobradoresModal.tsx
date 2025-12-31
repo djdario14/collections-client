@@ -137,17 +137,6 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
           )}
       </div>
   )
-        {/* Modal de detalles de ruta del cobrador */}
-        {selectedCobrador && (
-          <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
-        )}
-
-            {cobradores.map((cobrador) => (
-              <div 
-                key={cobrador.id}
-                style={{
-                  background: 'rgba(15, 23, 42, 0.5)',
-                  border: '1px solid rgba(34, 197, 94, 0.3)',
                   borderRadius: '12px',
                   padding: '16px',
                   display: 'flex',
