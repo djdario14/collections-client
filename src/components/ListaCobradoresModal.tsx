@@ -255,10 +255,18 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId, onS
                     </div>
                   ))}
                   {cobradores.length === 0 && (
+
                     <p style={{ color: '#64748b', fontSize: '0.9em' }}>
                       Crea tu primer cobrador para comenzar a delegar rutas
                     </p>
                   )}
                 </>
               )}
+      {/* Modal de detalles de ruta del cobrador */}
+      {selectedCobrador && !onSelectCobrador && (
+        <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
+      )}
+    </section>
+  );
+}
 
