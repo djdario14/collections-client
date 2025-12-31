@@ -34,7 +34,21 @@ type AdminDashboardProps = {
 };
 
 export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }: AdminDashboardProps) {
-  // ...existing code...
+
+  // Estado principal
+  const [clients, setClients] = useState<Cliente[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
+  const [selected, setSelected] = useState<Cliente | null>(null);
+  const [gastosRefresh, setGastosRefresh] = useState(0);
+  const [showResumen, setShowResumen] = useState(false);
+  const [showEnrutar, setShowEnrutar] = useState(false);
+  const [showCrearCobrador, setShowCrearCobrador] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [vistaCartera, setVistaCartera] = useState<'todos' | 'activos' | 'al-dia' | 'vencidos'>('todos');
+  const [currentDay, setCurrentDay] = useState(new Date().toISOString().split('T')[0]);
+  const [rutaVersion, setRutaVersion] = useState(0);
 
   // Detectar cambio de día y refrescar automáticamente
   useEffect(() => {
