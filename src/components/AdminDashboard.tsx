@@ -8,7 +8,33 @@ import EnrutarModal from './EnrutarModal';
 import SyncIndicator from './SyncIndicator';
 import { getClients } from '../services/api';
 
-// ...existing code...
+type Cliente = {
+  id: string;
+  nombre: string;
+  deuda: number;
+  vencimiento: string;
+  payments?: any[];
+  credits?: any[];
+  createdAt?: string;
+};
+
+type AdminDashboardProps = {
+  theme: 'dark' | 'light';
+  onToggleTheme: () => void;
+  user: {
+    id: number;
+    username: string;
+    nombre: string;
+    role: 'admin';
+    adminId: number | null;
+    token: string;
+    sessionId: string;
+  };
+  onLogout: () => void;
+};
+
+export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }: AdminDashboardProps) {
+  // ...existing code...
 
   // Detectar cambio de día y refrescar automáticamente
   useEffect(() => {
