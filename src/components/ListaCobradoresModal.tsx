@@ -52,9 +52,8 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
   }
 
   return (
-    <div style={{ padding: 24, background: '#1e293b', borderRadius: 16, minWidth: 350, maxWidth: 500 }}>
-      <button onClick={onClose} style={{ float: 'right', background: 'none', border: 'none', color: '#fff', fontSize: 20, cursor: 'pointer' }}>✖</button>
-      <h2 style={{ color: '#e6eef6', marginBottom: 16 }}>Tus Cobradores</h2>
+    <section style={{ maxWidth: 700, margin: '0 auto', padding: 32 }}>
+      <h1 style={{ color: '#e6eef6', marginBottom: 24, fontSize: '2em', textAlign: 'left' }}>Tus Cobradores</h1>
       {loading ? (
         <p style={{ color: '#94a3b8' }}>Cargando cobradores...</p>
       ) : (
@@ -66,13 +65,13 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                 background: 'rgba(15, 23, 42, 0.5)',
                 border: '1px solid rgba(34, 197, 94, 0.3)',
                 borderRadius: '12px',
-                padding: '16px',
+                padding: '20px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 cursor: 'pointer',
                 transition: 'background 0.2s',
-                marginBottom: 12
+                marginBottom: 18
               }}
               onClick={() => setSelectedCobrador(cobrador)}
               title="Ver detalles de la ruta"
@@ -84,7 +83,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                     <h3 style={{
                       color: '#e6eef6',
                       margin: 0,
-                      fontSize: '1.1em',
+                      fontSize: '1.2em',
                       fontWeight: 600
                     }}>
                       {cobrador.nombre}
@@ -92,7 +91,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                     <p style={{
                       color: '#94a3b8',
                       margin: '4px 0 0 0',
-                      fontSize: '0.9em'
+                      fontSize: '1em'
                     }}>
                       @{cobrador.username}
                     </p>
@@ -102,7 +101,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                   display: 'flex',
                   gap: '12px',
                   marginTop: '8px',
-                  fontSize: '0.85em'
+                  fontSize: '0.95em'
                 }}>
                   <span style={{
                     background: 'rgba(34, 197, 94, 0.2)',
@@ -127,7 +126,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
                   padding: '10px 16px',
                   color: '#fca5a5',
                   cursor: 'pointer',
-                  fontSize: '14px',
+                  fontSize: '15px',
                   fontWeight: 600,
                   transition: 'all 0.3s'
                 }}
@@ -154,7 +153,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
       {selectedCobrador && (
         <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
       )}
-    </div>
+    </section>
   );
 }
 

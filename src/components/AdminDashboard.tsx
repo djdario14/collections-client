@@ -800,13 +800,13 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
         />
       )}
 
-      {showListaCobradores && (
+      {/* Tus Cobradores como sección principal */}
+      <div style={{ margin: '40px 0' }}>
         <ListaCobradoresModal
-          onClose={() => setShowListaCobradores(false)}
           adminToken={user.token}
           adminId={user.id}
         />
-      )}
+      </div>
     </div>
   )
 }
