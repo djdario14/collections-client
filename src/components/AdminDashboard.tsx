@@ -1,32 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import ResumenModal from './ResumenModal'
-import ClientDetail from './ClientDetail'
-import CrearCobradorModal from './CrearCobradorModal'
-import ListaCobradoresModal from './ListaCobradoresModal'
-import EnrutarModal from './EnrutarModal'
-import SyncIndicator from './SyncIndicator'
-import { getClients } from '../services/api'
 
-        {/* Lista de Cobradores como sección principal */}
-        <div style={{ marginTop: 40 }}>
-          <ListaCobradoresModal
-            adminToken={user.token}
-            adminId={user.id}
-          />
-        setLoading(false)
-      })
-    }
-    
-    loadClients()
-    
-    // Auto-refresh cada 5 segundos
-    const interval = setInterval(loadClients, 5000)
-    
-    return () => { 
-      mounted = false
-      clearInterval(interval)
-    }
-  }, [])
+import React, { useEffect, useState } from 'react';
+import ResumenModal from './ResumenModal';
+import ClientDetail from './ClientDetail';
+import CrearCobradorModal from './CrearCobradorModal';
+import ListaCobradoresModal from './ListaCobradoresModal';
+import EnrutarModal from './EnrutarModal';
+import SyncIndicator from './SyncIndicator';
+import { getClients } from '../services/api';
+
+// ...existing code...
 
   // Detectar cambio de día y refrescar automáticamente
   useEffect(() => {
