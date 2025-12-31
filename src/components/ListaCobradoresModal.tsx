@@ -137,17 +137,6 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId }: P
           )}
         </div>
       )
-                  padding: '16px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
-              >
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '1.5em' }}>🎯</span>
-                    <div>
-                      <h3 style={{ 
                         color: '#e6eef6', 
                         margin: 0,
                         fontSize: '1.1em',
