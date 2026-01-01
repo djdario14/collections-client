@@ -1,4 +1,4 @@
-
+// Cambio menor para forzar redeploy del frontend
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
