@@ -19,9 +19,10 @@ type Props = {
   token: string;
   onBack: () => void;
   nombre: string;
+  adminId?: number;
 };
 
-export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre }: Props) {
+export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre, adminId }: Props) {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +42,12 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
         const resumenData = resResumen.ok ? await resResumen.json() : null;
         setResumen(resumenData);
         setCobrador(resumenData?.cobrador || null);
-        setClientes(resumenData?.clientes || []);
+        // Filtrar clientes por adminId si está presente
+        let clientesFiltrados = resumenData?.clientes || [];
+        if (adminId) {
+          clientesFiltrados = clientesFiltrados.filter((c: any) => c.adminId === adminId);
+        }
+        setClientes(clientesFiltrados);
       } catch (err) {
         setError('Error al cargar los datos del cobrador');
       } finally {
@@ -49,7 +55,7 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
       }
     }
     fetchData();
-  }, [cobradorId, token]);
+  }, [cobradorId, token, adminId]);
 
   if (loading) return <div style={{textAlign:'center',marginTop:80}}>Cargando...</div>;
   if (error) return <div style={{color:'red',textAlign:'center',marginTop:80}}>{error}</div>;

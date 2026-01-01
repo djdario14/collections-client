@@ -90,6 +90,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
             nombre={selectedCobrador.nombre}
             token={user.token}
             onBack={() => setSelectedCobrador(null)}
+            adminId={user.id}
           />
         )}
       </div>

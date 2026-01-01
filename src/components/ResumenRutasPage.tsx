@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import { Chart, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend } from 'chart.js';
 import { getResumenRutas, ResumenRutasPeriodo } from '../services/resumenRutas';
@@ -13,6 +14,7 @@ const PERIODOS = [
 ];
 
 export default function ResumenRutasPage({ adminId }: { adminId: number }) {
+  const navigate = useNavigate();
   const [periodo, setPeriodo] = useState<ResumenRutasPeriodo>('diario');
   const [labels, setLabels] = useState<string[]>([]);
   const [values, setValues] = useState<number[]>([]);
@@ -45,6 +47,9 @@ export default function ResumenRutasPage({ adminId }: { adminId: number }) {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', paddingTop: 60 }}>
       <div style={{ width: 480, maxWidth: '95vw', background: 'var(--card)', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.10)', padding: 32, marginTop: 32 }}>
+        <button onClick={() => navigate('/')} style={{ marginBottom: 18, background: 'none', border: 'none', color: '#22c55e', fontWeight: 700, fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{fontSize:20,marginRight:2}}>←</span> Volver al dashboard
+        </button>
         <h2 style={{ marginTop: 0, marginBottom: 24, fontWeight: 800, fontSize: '1.7em', textAlign: 'center', letterSpacing: 0.5 }}>Resumen de rutas</h2>
         <div style={{ marginBottom: 18, display: 'flex', justifyContent: 'center', gap: 12 }}>
           {PERIODOS.map(p => (
