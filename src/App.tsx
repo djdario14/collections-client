@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import Dashboard from './components/Dashboard'
-import SuperAdminDashboard from './components/SuperAdminDashboard'
-import AdminDashboard from './components/AdminDashboard'
-import CobradorDashboard from './components/CobradorDashboard'
-import ErrorBoundary from './components/ErrorBoundary'
-import Login from './components/Login'
-import API_URL from './config'
+
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import SuperAdminDashboard from './components/SuperAdminDashboard';
+import AdminDashboard from './components/AdminDashboard';
+import CobradorDashboard from './components/CobradorDashboard';
+import ErrorBoundary from './components/ErrorBoundary';
+import Login from './components/Login';
+import ResumenRutasPage from './components/ResumenRutasPage';
+import API_URL from './config';
 
 interface User {
   id: number
@@ -154,61 +157,36 @@ export default function App() {
     )
   }
 
-  if (!user) {
-    return <Login onLogin={handleLogin} theme={theme} onToggleTheme={toggleTheme} />
-  }
-
-  // Renderizar interfaz según rol
-  if (user.role === 'superadmin') {
-    return (
-      <div className="app-root">
-        <SuperAdminDashboard 
-          theme={theme} 
-          onToggleTheme={toggleTheme}
-          currentUser={user}
-          onLogout={handleLogout}
-        />
-      </div>
-    )
-  }
-
-  if (user.role === 'admin') {
-    return (
-      <div className="app-root">
-        <AdminDashboard 
-          theme={theme} 
-          onToggleTheme={toggleTheme}
-          user={user}
-          onLogout={handleLogout}
-        />
-      </div>
-    )
-  }
-
-  if (user.role === 'cobrador') {
-    return (
-      <div className="app-root">
-        <ErrorBoundary>
-          <CobradorDashboard 
-            theme={theme} 
-            onToggleTheme={toggleTheme}
-            user={user}
-            onLogout={handleLogout}
-          />
-        </ErrorBoundary>
-      </div>
-    )
-  }
-
-  // Fallback al Dashboard genérico
   return (
-    <div className="app-root">
-      <Dashboard 
-        theme={theme} 
-        onToggleTheme={toggleTheme}
-        user={user}
-        onLogout={handleLogout}
-      />
-    </div>
-  )
+    <Router>
+      <Routes>
+        {/* Login público */}
+        {!user && (
+          <Route path="/*" element={<Login onLogin={handleLogin} theme={theme} onToggleTheme={toggleTheme} />} />
+        )}
+        {/* Rutas protegidas */}
+        {user && user.role === 'admin' && (
+          <>
+            <Route path="/" element={<AdminDashboard theme={theme} onToggleTheme={toggleTheme} user={user} onLogout={handleLogout} />} />
+            <Route path="/resumen-rutas" element={<ResumenRutasPage adminId={user.id} />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
+        )}
+        {user && user.role === 'superadmin' && (
+          <Route path="/*" element={<SuperAdminDashboard theme={theme} onToggleTheme={toggleTheme} currentUser={user} onLogout={handleLogout} />} />
+        )}
+        {user && user.role === 'cobrador' && (
+          <Route path="/*" element={
+            <ErrorBoundary>
+              <CobradorDashboard theme={theme} onToggleTheme={toggleTheme} user={user} onLogout={handleLogout} />
+            </ErrorBoundary>
+          } />
+        )}
+        {/* Fallback genérico */}
+        {user && !['admin','superadmin','cobrador'].includes(user.role) && (
+          <Route path="/*" element={<Dashboard theme={theme} onToggleTheme={toggleTheme} user={user} onLogout={handleLogout} />} />
+        )}
+      </Routes>
+    </Router>
+  );
 }

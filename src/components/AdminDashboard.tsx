@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MenuLateral from './MenuLateral';
-import ResumenRutasModal from './ResumenRutasModal';
 import CrearCobradorModal from './CrearCobradorModal';
 import ListaCobradoresModal from './ListaCobradoresModal';
 import CobradorDetailsPanel from './CobradorDetailsPanel';
@@ -24,7 +25,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
   const [showCrearCobrador, setShowCrearCobrador] = useState(false);
   const [selectedCobrador, setSelectedCobrador] = useState(null as null | { id: number, nombre: string });
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showResumenRutas, setShowResumenRutas] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)', position: 'relative' }}>
@@ -53,7 +54,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
         onClose={() => setMenuOpen(false)}
         onToggleTheme={onToggleTheme}
         onLogout={onLogout}
-        onResumenRutas={() => { setShowResumenRutas(true); setMenuOpen(false); }}
+        onResumenRutas={() => { navigate('/resumen-rutas'); setMenuOpen(false); }}
         theme={theme}
       />
       {/* Contenido principal */}
@@ -99,10 +100,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
           adminToken={user.token}
         />
       )}
-      {/* Modal de resumen de rutas con gráfico lineal */}
-      {showResumenRutas && (
-        <ResumenRutasModal onClose={() => setShowResumenRutas(false)} adminId={user.id} />
-      )}
+      {/* El resumen de rutas ahora es una página aparte */}
     </div>
   );
 }
