@@ -53,7 +53,7 @@ if (typeof window !== 'undefined') {
   });
 }
 
-async function tryFetch<T>(url: string, opts?: RequestInit): Promise<T> {
+export async function tryFetch<T>(url: string, opts?: RequestInit): Promise<T> {
   // Agregar token de autorización si existe
   const token = localStorage.getItem('token');
   const headers: Record<string, string> = {
