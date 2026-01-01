@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import { Chart, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend } from 'chart.js';
-import { getResumenRutas, ResumenRutasPeriodo } from '../services/resumenRutas';
+import { getResumenRutas } from '../services/resumenRutas';
+import type { ResumenRutasPeriodo } from '../services/resumenRutas';
 
 Chart.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend);
 

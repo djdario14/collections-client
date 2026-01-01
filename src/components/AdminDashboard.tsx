@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MenuLateral from './MenuLateral';
 import CrearCobradorModal from './CrearCobradorModal';
@@ -82,7 +82,8 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
               adminToken={user.token} 
               adminId={user.id} 
               onSelectCobrador={(cobrador) => setSelectedCobrador(cobrador)}
-            />
+                onClose={() => setShowCobradores(false)}
+              />
           </>
         ) : (
           <CobradorDetailsPanel 

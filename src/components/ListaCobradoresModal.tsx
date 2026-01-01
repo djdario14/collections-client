@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import CobradorRutaModal from './CobradorRutaModal'
 const API_BASE = import.meta.env.VITE_API_URL;
 
@@ -18,7 +18,7 @@ type Props = {
   onSelectCobrador?: (cobrador: { id: number, nombre: string }) => void
 }
 
-export default function ListaCobradoresModal({ onClose, adminToken, adminId, onSelectCobrador }: Props) {
+export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobrador }: Props) {
   const [cobradores, setCobradores] = useState<Cobrador[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedCobrador, setSelectedCobrador] = useState<Cobrador | null>(null)
@@ -28,7 +28,7 @@ export default function ListaCobradoresModal({ onClose, adminToken, adminId, onS
   const [menuOpenId, setMenuOpenId] = useState<number | null>(null);
   const [editMenuOpenId, setEditMenuOpenId] = useState<number | null>(null);
 
-  function handleRequestDelete(id: number, nombre: string) {
+  function handleRequestDelete(nombre: string) {
     setMenuOpenId(null);
     alert(`Solicitar eliminación de cobrador: ${nombre}`);
   }
