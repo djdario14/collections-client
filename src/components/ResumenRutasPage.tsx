@@ -29,7 +29,15 @@ export default function ResumenRutasPage({ adminId }: { adminId: number }) {
         setLoading(false);
       })
       .catch((err) => {
-        setError('No se pudo cargar el resumen.');
+        let msg = err?.message || 'No se pudo cargar el resumen.';
+        if (msg.includes('401') || msg.toLowerCase().includes('autoriz')) {
+          msg = 'No tienes permisos para ver el resumen. Inicia sesión nuevamente.';
+        } else if (msg.includes('No hay conexión')) {
+          msg = 'No hay conexión con el servidor. Verifica tu internet.';
+        } else if (msg.includes('not found') || msg.includes('404')) {
+          msg = 'No se encontraron datos para el periodo seleccionado.';
+        }
+        setError(msg);
         setLoading(false);
       });
   }, [periodo, adminId]);
