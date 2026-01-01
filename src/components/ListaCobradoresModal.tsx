@@ -7,7 +7,7 @@ type Cobrador = {
   username: string
   nombre: string
   role: 'cobrador'
-  adminId: number | null
+  adminId?: number
   createdAt: string
 }
 
