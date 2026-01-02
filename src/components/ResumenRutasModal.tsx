@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend } from 'chart.js';
-import { getResumenRutas, ResumenRutasPeriodo } from '../services/resumenRutas';
+import { getResumenRutas } from '../services/resumenRutas';
+import type { ResumenRutasPeriodo } from '../services/resumenRutas';
 
 Chart.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend);
 
@@ -23,12 +24,12 @@ export default function ResumenRutasModal({ onClose, adminId }: { onClose: () =>
     setLoading(true);
     setError(null);
     getResumenRutas(periodo, adminId)
-      .then((data) => {
+      .then((data: any) => {
         setLabels(data.labels);
         setValues(data.values);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setError('No se pudo cargar el resumen.');
         setLoading(false);
       });

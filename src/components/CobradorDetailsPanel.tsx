@@ -19,10 +19,9 @@ type Props = {
   token: string;
   onBack: () => void;
   nombre: string;
-  adminId?: number;
 };
 
-export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre, adminId }: Props) {
+export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre }: Props) {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

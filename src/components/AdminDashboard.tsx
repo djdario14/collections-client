@@ -25,6 +25,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
   const [showCrearCobrador, setShowCrearCobrador] = useState(false);
   const [selectedCobrador, setSelectedCobrador] = useState(null as null | { id: number, nombre: string });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showCobradores, setShowCobradores] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -82,8 +83,8 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
               adminToken={user.token} 
               adminId={user.id} 
               onSelectCobrador={(cobrador) => setSelectedCobrador(cobrador)}
-                onClose={() => setShowCobradores(false)}
-              />
+              onClose={() => setShowCobradores(false)}
+            />
           </>
         ) : (
           <CobradorDetailsPanel 
@@ -91,7 +92,6 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
             nombre={selectedCobrador.nombre}
             token={user.token}
             onBack={() => setSelectedCobrador(null)}
-            adminId={user.id}
           />
         )}
       </div>

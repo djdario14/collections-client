@@ -186,7 +186,7 @@ export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobr
                         style={{
                           display: 'block', width: '100%', background: 'none', border: 'none', color: '#fca5a5', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
                         }}
-                        onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.id, cobrador.nombre); }}
+                        onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.nombre); }}
                       >
                         🗑️ Solicitar Eliminación
                       </button>

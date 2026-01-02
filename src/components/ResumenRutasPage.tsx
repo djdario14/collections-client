@@ -26,7 +26,7 @@ export default function ResumenRutasPage({ adminId }: { adminId: number }) {
     setLoading(true);
     setError(null);
     getResumenRutas(periodo, adminId)
-      .then((data) => {
+      .then((data: any) => {
         setLabels(data.labels);
         setValues(data.values);
         setLoading(false);
