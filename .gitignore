@@ -45,3 +45,6 @@ src/data/*.sqlite3
 
 # OS
 Thumbs.db
+
+.vercel
+.env*.local

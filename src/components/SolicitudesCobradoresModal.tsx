@@ -31,7 +31,7 @@ export default function SolicitudesCobradoresModal({ onClose, token }: Props) {
 
   async function loadRequests() {
     try {
-      const res = await fetch('/api/auth/cobrador-requests', {
+      const res = await fetch(`${API_URL}/auth/cobrador-requests`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       
@@ -54,7 +54,7 @@ export default function SolicitudesCobradoresModal({ onClose, token }: Props) {
     if (!confirm(confirmMessage)) return
 
     try {
-      const res = await fetch(`/api/auth/cobrador-requests/${requestId}/resolve`, {
+      const res = await fetch(`${API_URL}/auth/cobrador-requests/${requestId}/resolve`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

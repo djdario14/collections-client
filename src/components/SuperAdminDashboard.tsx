@@ -50,7 +50,7 @@ export default function SuperAdminDashboard({ theme, onToggleTheme, onLogout, cu
 
   async function loadUsers() {
     try {
-      const res = await fetch('/api/auth/users', {
+      const res = await fetch(`${API_URL}/auth/users`, {
         headers: { 'Authorization': `Bearer ${currentUser.token}` }
       })
       if (res.ok) {
@@ -66,7 +66,7 @@ export default function SuperAdminDashboard({ theme, onToggleTheme, onLogout, cu
 
   async function loadPendingRequests() {
     try {
-      const res = await fetch('/api/auth/cobrador-requests', {
+      const res = await fetch(`${API_URL}/auth/cobrador-requests`, {
         headers: { 'Authorization': `Bearer ${currentUser.token}` }
       })
       if (res.ok) {
@@ -83,7 +83,7 @@ export default function SuperAdminDashboard({ theme, onToggleTheme, onLogout, cu
     e.preventDefault()
     
     try {
-      const res = await fetch('/api/auth/users', {
+      const res = await fetch(`${API_URL}/auth/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export default function SuperAdminDashboard({ theme, onToggleTheme, onLogout, cu
     if (!confirm('¿Seguro que deseas eliminar este usuario?')) return
 
     try {
-      const res = await fetch(`/api/auth/users/${userId}`, {
+      const res = await fetch(`${API_URL}/auth/users/${userId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${currentUser.token}` }
       })
@@ -127,7 +127,7 @@ export default function SuperAdminDashboard({ theme, onToggleTheme, onLogout, cu
     if (!confirm(`¿Iniciar sesión como ${userName}?`)) return
 
     try {
-      const res = await fetch('/api/auth/login-as', {
+      const res = await fetch(`${API_URL}/auth/login-as`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
