@@ -169,45 +169,7 @@ export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobr
                       background: '#1e293b',
                       border: '1px solid #334155',
                       borderRadius: 8,
-                      boxShadow: '0 2px 12px #0008',
+                                {/* Opciones eliminadas, solo muestra la tarjeta */}
                       zIndex: 11,
-                      minWidth: 220
-                    }}>
-                      <button
-                        style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#e0e7ef', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                        onClick={e => { e.stopPropagation(); handleEditOption(cobrador.id, 'nombre'); }}
-                      >
-                        Cambiar nombre de ruta
-                      </button>
-                      <button
-                        style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#e0e7ef', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                        onClick={e => { e.stopPropagation(); handleEditOption(cobrador.id, 'password'); }}
-                      >
-                        Cambiar contraseña
-                      </button>
-                      <button
-                        style={{ display: 'block', width: '100%', background: 'none', border: 'none', color: '#64748b', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15 }}
-                        onClick={e => { e.stopPropagation(); setEditMenuOpenId(null); }}
-                      >
-                        Cancelar
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))
-          ) : (
-            <p style={{ color: '#64748b', fontSize: '0.9em' }}>
-              Crea tu primer cobrador para comenzar a delegar rutas
-            </p>
-          )}
-        </>
-      )}
-      {/* Modal de detalles de ruta del cobrador */}
-      {selectedCobrador && !onSelectCobrador && (
-        <CobradorRutaModal cobrador={selectedCobrador} onClose={() => setSelectedCobrador(null)} />
-      )}
-    </section>
-  );
-}
 
+                      minWidth: 220
