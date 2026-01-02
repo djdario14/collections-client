@@ -146,7 +146,7 @@ export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobr
                     </span>
                   </div>
                 </div>
-                {/* Opciones eliminadas, solo muestra la tarjeta */}
+                  {/* Solo muestra la tarjeta, menú de opciones eliminado completamente */}
                         onClick={e => { e.stopPropagation(); setEditMenuOpenId(cobrador.id); setMenuOpenId(null); }}
                       >
                         ✏️ Editar
