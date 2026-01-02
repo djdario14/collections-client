@@ -30,8 +30,7 @@ export default function MenuLateral({ onToggleTheme, onLogout, onResumenRutas, t
         borderRight: '1.5px solid var(--border)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px 24px 0 24px' }}>
-        <span style={{ fontSize: 28, fontWeight: 700, letterSpacing: 1 }}>&#9776;</span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '24px 24px 0 24px' }}>
         <button
           onClick={onClose}
           style={{ background: 'none', border: 'none', fontSize: 28, cursor: 'pointer', color: 'var(--text-primary)', marginLeft: 8 }}
