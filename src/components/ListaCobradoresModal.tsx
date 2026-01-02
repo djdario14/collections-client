@@ -146,38 +146,7 @@ export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobr
                     </span>
                   </div>
                 </div>
-                <div style={{ position: 'relative' }}>
-                  <button
-                    onClick={e => { e.stopPropagation(); setMenuOpenId(menuOpenId === cobrador.id ? null : cobrador.id); setEditMenuOpenId(null); }}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      color: '#64748b',
-                      fontSize: 26,
-                      cursor: 'pointer',
-                      padding: '4px 10px',
-                      borderRadius: 8
-                    }}
-                    title="Opciones"
-                  >
-                    ⋮
-                  </button>
-                  {menuOpenId === cobrador.id && (
-                    <div style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: 36,
-                      background: '#1e293b',
-                      border: '1px solid #334155',
-                      borderRadius: 8,
-                      boxShadow: '0 2px 12px #0008',
-                      zIndex: 10,
-                      minWidth: 180
-                    }}>
-                      <button
-                        style={{
-                          display: 'block', width: '100%', background: 'none', border: 'none', color: '#e6eef6', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
-                        }}
+                {/* Opciones eliminadas, solo muestra la tarjeta */}
                         onClick={e => { e.stopPropagation(); setEditMenuOpenId(cobrador.id); setMenuOpenId(null); }}
                       >
                         ✏️ Editar
