@@ -146,30 +146,4 @@ export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobr
                     </span>
                   </div>
                 </div>
-                  {/* Solo muestra la tarjeta, menú de opciones eliminado completamente */}
-                        onClick={e => { e.stopPropagation(); setEditMenuOpenId(cobrador.id); setMenuOpenId(null); }}
-                      >
-                        ✏️ Editar
-                      </button>
-                      <button
-                        style={{
-                          display: 'block', width: '100%', background: 'none', border: 'none', color: '#fca5a5', padding: '12px 16px', textAlign: 'left', cursor: 'pointer', fontSize: 15
-                        }}
-                        onClick={e => { e.stopPropagation(); handleRequestDelete(cobrador.nombre); }}
-                      >
-                        🗑️ Solicitar Eliminación
-                      </button>
-                    </div>
-                  )}
-                  {editMenuOpenId === cobrador.id && (
-                    <div style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: 36,
-                      background: '#1e293b',
-                      border: '1px solid #334155',
-                      borderRadius: 8,
-                                {/* Opciones eliminadas, solo muestra la tarjeta */}
-                      zIndex: 11,
-
-                      minWidth: 220
+                  {/* Tarjeta limpia, sin menú ni botones extra */}
