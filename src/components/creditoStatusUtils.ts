@@ -9,7 +9,8 @@ export function getCreditoStatus(credits, payments) {
     return abono < cr.total;
   });
   if (!activo) return { estado: 'Inactivo', alDia: null };
-  // Calcular si está al día
+  // Si hay un crédito con saldo pendiente, está ACTIVO
+  // Calcular días de atraso
   const pagos = payments?.filter(p => p.creditId === activo.id) || [];
   const abono = pagos.reduce((sum, p) => sum + (p.amount || 0), 0);
   const fechaInicio = new Date(activo.date || activo.createdAt);
@@ -24,6 +25,11 @@ export function getCreditoStatus(credits, payments) {
   }
   const valorCuota = activo.valorCuota || (activo.amount ? Math.round((activo.amount * 0.04) * 100) / 100 : 0);
   const cuotasPagadas = valorCuota > 0 ? Math.floor(abono / valorCuota) : 0;
-  const alDia = cuotasPagadas >= diasEsperados;
+  const diasAtraso = diasEsperados - cuotasPagadas;
+  // Si no hay atraso, ✔️; si hay atraso, ❌; si no tiene deuda pendiente, -
+  let alDia = null;
+  if (abono < activo.total) {
+    alDia = diasAtraso > 0 ? false : true;
+  }
   return { estado: 'Activo', alDia };
 }
