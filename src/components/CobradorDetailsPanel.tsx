@@ -72,16 +72,14 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
         </div>
       </div>
       {cobrador && (
-        <div style={{ marginBottom: 24, background: '#1e293b', padding: 16, borderRadius: 12, display: 'flex', gap: 32 }}>
-          <div style={{ minWidth: 180 }}>
-            <div><b>Usuario:</b> {cobrador.username}</div>
-            <div><b>Fecha de alta:</b> {cobrador.createdAt ? new Date(cobrador.createdAt).toLocaleDateString() : 'N/A'}</div>
-            <div><b>Estado:</b> Activo</div>
+        <div style={{ marginBottom: 24, display: 'flex', gap: 24 }}>
+          <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
+            <span style={{ fontSize: 22, fontWeight: 600, marginBottom: 12 }}>Editar cobrador</span>
+            <button style={{ background: '#60a5fa', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer' }}>✏️ Editar</button>
           </div>
-          <div>
-            <div><b>Caja hoy:</b> ${resumen?.cajaHoy?.toLocaleString('es-MX', { minimumFractionDigits: 2 }) ?? '0.00'}</div>
-            <div><b>Clientes atendidos hoy:</b> {resumen?.clientesAtendidos ?? 0}</div>
-            <div><b>Total clientes:</b> {resumen?.totalClientes ?? clientes.length}</div>
+          <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
+            <span style={{ fontSize: 22, fontWeight: 600, marginBottom: 12 }}>Estadísticas de ruta</span>
+            <button style={{ background: '#22d3ee', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer' }}>📊 Ver estadísticas</button>
           </div>
         </div>
       )}
