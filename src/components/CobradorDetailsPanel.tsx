@@ -42,12 +42,8 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
         const resumenData = resResumen.ok ? await resResumen.json() : null;
         setResumen(resumenData);
         setCobrador(resumenData?.cobrador || null);
-        // Filtrar clientes por adminId si está presente
-        let clientesFiltrados = resumenData?.clientes || [];
-        if (adminId) {
-          clientesFiltrados = clientesFiltrados.filter((c: any) => c.adminId === adminId);
-        }
-        setClientes(clientesFiltrados);
+        // Mostrar todos los clientes asignados al cobrador
+        setClientes(resumenData?.clientes || []);
       } catch (err) {
         setError('Error al cargar los datos del cobrador');
       } finally {
@@ -55,7 +51,7 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
       }
     }
     fetchData();
-  }, [cobradorId, token, adminId]);
+  }, [cobradorId, token]);
 
   if (loading) return <div style={{textAlign:'center',marginTop:80}}>Cargando...</div>;
   if (error) return <div style={{color:'red',textAlign:'center',marginTop:80}}>{error}</div>;
