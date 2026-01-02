@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ClientDetailModal from './ClientDetailModal';
 
 const API_BASE = import.meta.env.VITE_API_URL;
 
@@ -27,6 +28,7 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
   const [error, setError] = useState<string | null>(null);
   const [resumen, setResumen] = useState<any>(null);
   const [cobrador, setCobrador] = useState<any>(null);
+  const [selectedClientId, setSelectedClientId] = useState<string|null>(null);
 
 
   useEffect(() => {
@@ -99,7 +101,10 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
             </thead>
             <tbody>
               {clientes.map(c => (
-                <tr key={c.id} style={{ borderBottom: '1px solid #334155' }}>
+                <tr key={c.id} style={{ borderBottom: '1px solid #334155', cursor: 'pointer' }}
+                  onClick={() => setSelectedClientId(c.id)}
+                  title="Ver detalle del cliente"
+                >
                   <td style={{ padding: 8 }}>{c.nombre}</td>
                   <td style={{ padding: 8 }}>${c.deuda?.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</td>
                   <td style={{ padding: 8 }}>{c.vencimiento ? new Date(c.vencimiento).toLocaleDateString() : 'N/A'}</td>
@@ -111,7 +116,10 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
           </table>
         )}
       </div>
-      {/* Aquí se puede agregar un modal para editar cobrador si showEdit es true */}
+      {/* Modal de detalle de cliente */}
+      {selectedClientId && (
+        <ClientDetailModal clientId={selectedClientId} onClose={() => setSelectedClientId(null)} />
+      )}
     </div>
   );
 }
