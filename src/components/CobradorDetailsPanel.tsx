@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import ClientDetailModal from './ClientDetailModal';
+import { getCreditoStatus } from './creditoStatusUtils';
 
 const API_BASE = import.meta.env.VITE_API_URL;
 
@@ -93,25 +94,26 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
             <thead>
               <tr style={{ background: '#1e293b' }}>
                 <th style={{ padding: 8, borderRadius: 8, textAlign: 'left' }}>Nombre</th>
-                <th style={{ padding: 8, textAlign: 'left' }}>Deuda</th>
-                <th style={{ padding: 8, textAlign: 'left' }}>Vencimiento</th>
-                <th style={{ padding: 8, textAlign: 'left' }}>Teléfono</th>
-                <th style={{ padding: 8, textAlign: 'left' }}>Asignado</th>
+                <th style={{ padding: 8, textAlign: 'left' }}>Estado crédito</th>
+                <th style={{ padding: 8, textAlign: 'left' }}>Al día</th>
               </tr>
             </thead>
             <tbody>
-              {clientes.map(c => (
-                <tr key={c.id} style={{ borderBottom: '1px solid #334155', cursor: 'pointer' }}
-                  onClick={() => setSelectedClientId(c.id)}
-                  title="Ver detalle del cliente"
-                >
-                  <td style={{ padding: 8 }}>{c.nombre}</td>
-                  <td style={{ padding: 8 }}>${c.deuda?.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</td>
-                  <td style={{ padding: 8 }}>{c.vencimiento ? new Date(c.vencimiento).toLocaleDateString() : 'N/A'}</td>
-                  <td style={{ padding: 8 }}>{c.telefono || '-'}</td>
-                  <td style={{ padding: 8 }}>{c.assignedAt ? new Date(c.assignedAt).toLocaleDateString() : '-'}</td>
-                </tr>
-              ))}
+              {clientes.map(c => {
+                const status = getCreditoStatus(c.credits, c.payments);
+                return (
+                  <tr key={c.id} style={{ borderBottom: '1px solid #334155', cursor: 'pointer' }}
+                    onClick={() => setSelectedClientId(c.id)}
+                    title="Ver detalle del cliente"
+                  >
+                    <td style={{ padding: 8 }}>{c.nombre}</td>
+                    <td style={{ padding: 8 }}>{status.estado}</td>
+                    <td style={{ padding: 8, textAlign: 'center' }}>
+                      {status.alDia === null ? '-' : status.alDia ? <span style={{color:'#22c55e',fontWeight:700}} title="Al día">✔️</span> : <span style={{color:'#ef4444',fontWeight:700}} title="Atrasado">❌</span>}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
