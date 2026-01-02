@@ -44,7 +44,7 @@ export default function CrearCobradorModal({ onClose, onSuccess, adminToken }: P
     setLoading(true)
 
     try {
-      const res = await fetch(`${API_URL}/auth/cobrador-requests`, {
+      const res = await fetch(`${API_URL}/api/auth/cobrador-requests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
