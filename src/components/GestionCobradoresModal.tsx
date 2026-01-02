@@ -30,7 +30,9 @@ export default function GestionCobradoresModal({ onClose }: Props) {
   async function loadRutas() {
     try {
       // Cargar clientes de la API
-      const res = await fetch('/api/clients')
+      // @ts-ignore
+      const API_URL = (import.meta.env && import.meta.env.VITE_API_URL) || '';
+      const res = await fetch(`${API_URL}/api/clients`)
       const clientes: Cliente[] = await res.json()
 
       // Obtener rutas guardadas del localStorage

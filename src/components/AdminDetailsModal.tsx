@@ -55,7 +55,9 @@ export default function AdminDetailsModal({ adminId, token, onClose }: Props) {
 
   async function loadDetails() {
     try {
-      const res = await fetch(`/api/auth/admin/${adminId}/details`, {
+      // @ts-ignore
+      const API_URL = (import.meta.env && import.meta.env.VITE_API_URL) || '';
+      const res = await fetch(`${API_URL}/api/auth/admin/${adminId}/details`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (res.ok) {
