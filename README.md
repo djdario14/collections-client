@@ -1,3 +1,4 @@
+# Forzar redeploy: 2026-01-02
 # React + TypeScript + Vite
 
 <!-- trigger vercel redeploy 2025-12-31 -->
