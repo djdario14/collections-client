@@ -7,67 +7,24 @@ type Cobrador = {
   username: string
   nombre: string
   role: 'cobrador'
-  adminId?: number
-  createdAt: string
+  adminId?: number;
+  createdAt: string;
 }
 
 type Props = {
-  onClose: () => void
-  adminToken: string
-  adminId: number
-  onSelectCobrador?: (cobrador: { id: number, nombre: string }) => void
+  onClose: () => void;
+  adminToken: string;
+  adminId: number;
+  onSelectCobrador?: (cobrador: { id: number, nombre: string }) => void;
 }
 
 export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobrador }: Props) {
-  const [cobradores, setCobradores] = useState<Cobrador[]>([])
-  const [loading, setLoading] = useState(true)
-  const [selectedCobrador, setSelectedCobrador] = useState<Cobrador | null>(null)
+  const [cobradores, setCobradores] = useState<Cobrador[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCobrador, setSelectedCobrador] = useState<Cobrador | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Menú de opciones flotante
-  const [menuOpenId, setMenuOpenId] = useState<number | null>(null);
-  const [editMenuOpenId, setEditMenuOpenId] = useState<number | null>(null);
-
-  function handleRequestDelete(nombre: string) {
-    setMenuOpenId(null);
-    alert(`Solicitar eliminación de cobrador: ${nombre}`);
-  }
-
-  function handleEditOption(id: number, option: string) {
-    setEditMenuOpenId(null);
-    if (option === 'nombre') {
-      alert('Cambiar nombre de ruta para cobrador ID: ' + id);
-    } else if (option === 'password') {
-      alert('Cambiar contraseña para cobrador ID: ' + id);
-    }
-  }
-
-  useEffect(() => {
-    loadCobradores()
-  }, [])
-
-  async function loadCobradores() {
-    try {
-      const res = await fetch(`${API_BASE}/api/auth/admin/${adminId}/cobradores`, {
-        headers: { 'Authorization': `Bearer ${adminToken}` }
-      })
-      if (res.ok) {
-        const cobradores = await res.json();
-        setCobradores(cobradores);
-        setError(null);
-      } else {
-        setError('Error al cargar la lista de cobradores. Código: ' + res.status);
-        setCobradores([]);
-      }
-    } catch (err) {
-      setError('Error de conexión al cargar cobradores');
-      setCobradores([]);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  // (Eliminada función duplicada handleRequestDelete)
+  // ...existing code...
 
   return (
     <section style={{ maxWidth: 700, margin: '0 auto', padding: 32 }}>
@@ -98,9 +55,9 @@ export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobr
                 }}
                 onClick={() => {
                   if (onSelectCobrador) {
-                    onSelectCobrador({ id: cobrador.id, nombre: cobrador.nombre })
+                    onSelectCobrador({ id: cobrador.id, nombre: cobrador.nombre });
                   } else {
-                    setSelectedCobrador(cobrador)
+                    setSelectedCobrador(cobrador);
                   }
                 }}
                 title="Ver detalles de la ruta"
@@ -146,4 +103,14 @@ export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobr
                     </span>
                   </div>
                 </div>
-                  {/* Tarjeta limpia, sin menú ni botones extra */}
+                {/* Tarjeta limpia, sin menú ni botones extra */}
+              </div>
+            ))
+          ) : (
+            <p style={{ color: '#94a3b8' }}>No tienes cobradores registrados.</p>
+          )}
+        </>
+      )}
+    </section>
+  );
+}

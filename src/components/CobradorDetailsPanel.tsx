@@ -21,9 +21,10 @@ type Props = {
   token: string;
   onBack: () => void;
   nombre: string;
+  userRole?: string;
 };
 
-export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre }: Props) {
+export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre, userRole }: Props) {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -73,12 +74,14 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
       </div>
       {cobrador && (
         <div style={{ marginBottom: 24, display: 'flex', gap: 24 }}>
-          <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
-            <span style={{ fontSize: 22, fontWeight: 600, marginBottom: 12 }}>Editar cobrador</span>
-            <button style={{ background: '#60a5fa', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', marginBottom: 10 }}>✏️ Cambiar nombre</button>
-            <button style={{ background: '#6366f1', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', marginBottom: 10 }}>🔑 Cambiar contraseña</button>
-            <button style={{ background: '#ef4444', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer' }}>🗑️ Solicitar eliminación</button>
-          </div>
+          {userRole === 'admin' || userRole === 'superadmin' ? (
+            <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
+              <span style={{ fontSize: 22, fontWeight: 600, marginBottom: 12 }}>Editar cobrador</span>
+              <button style={{ background: '#60a5fa', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', marginBottom: 10 }}>✏️ Cambiar nombre</button>
+              <button style={{ background: '#6366f1', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', marginBottom: 10 }}>🔑 Cambiar contraseña</button>
+              <button style={{ background: '#ef4444', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer' }}>🗑️ Solicitar eliminación</button>
+            </div>
+          ) : null}
           <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
             <span style={{ fontSize: 22, fontWeight: 600, marginBottom: 12 }}>Estadísticas de ruta</span>
             <button style={{ background: '#22d3ee', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer' }}>📊 Ver estadísticas</button>
