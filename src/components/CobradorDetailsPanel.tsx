@@ -31,6 +31,7 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
   const [resumen, setResumen] = useState<any>(null);
   const [cobrador, setCobrador] = useState<any>(null);
   const [selectedClientId, setSelectedClientId] = useState<string|null>(null);
+  const [showEditOptions, setShowEditOptions] = useState(false);
 
 
   useEffect(() => {
@@ -70,11 +71,28 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
       {cobrador && (
         <div style={{ marginBottom: 24, display: 'flex', gap: 24 }}>
           {userRole === 'admin' || userRole === 'superadmin' ? (
-            <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
-              <span style={{ fontSize: 22, fontWeight: 600, marginBottom: 12 }}>Editar cobrador</span>
-              <button style={{ background: '#60a5fa', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', marginBottom: 10 }}>✏️ Cambiar nombre</button>
-              <button style={{ background: '#6366f1', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', marginBottom: 10 }}>🔑 Cambiar contraseña</button>
-              <button style={{ background: '#ef4444', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer' }}>🗑️ Solicitar eliminación</button>
+            <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002', position: 'relative' }}>
+              <button
+                style={{
+                  background: '#60a5fa', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 18, cursor: 'pointer', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600
+                }}
+                onClick={() => setShowEditOptions(v => !v)}
+              >
+                ✏️ Editar cobrador
+              </button>
+              {showEditOptions && (
+                <div style={{ marginTop: 8, width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <button style={{ background: '#60a5fa', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    ✏️ Cambiar nombre
+                  </button>
+                  <button style={{ background: '#6366f1', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    🔑 Cambiar contraseña
+                  </button>
+                  <button style={{ background: '#ef4444', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    🗑️ Solicitar eliminación
+                  </button>
+                </div>
+              )}
             </div>
           ) : null}
           <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
