@@ -24,7 +24,26 @@ export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobr
   const [selectedCobrador, setSelectedCobrador] = useState<Cobrador | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // ...existing code...
+  useEffect(() => {
+    async function loadCobradores() {
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/admin/${adminId}/cobradores`, {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setCobradores(data);
+        } else {
+          setError('Error al cargar cobradores.');
+        }
+      } catch (err) {
+        setError('Error de conexión al cargar cobradores.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadCobradores();
+  }, [adminId, adminToken]);
 
   return (
     <section style={{ maxWidth: 700, margin: '0 auto', padding: 32 }}>

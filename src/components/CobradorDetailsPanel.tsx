@@ -66,11 +66,6 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
       </button>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <h2 style={{ fontSize: '1.5em', margin: 0 }}>{cobrador?.nombre || nombre}</h2>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button style={{ background: '#334155', color: '#e0e7ef', border: 'none', borderRadius: 8, padding: '8px 14px', cursor: 'pointer' }}>✏️ Editar</button>
-          <button style={{ background: '#334155', color: '#e0e7ef', border: 'none', borderRadius: 8, padding: '8px 14px', cursor: 'pointer' }}>🔑 Cambiar contraseña</button>
-          <button style={{ background: '#ef4444', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 14px', cursor: 'pointer' }}>🗑️ Solicitar eliminación</button>
-        </div>
       </div>
       {cobrador && (
         <div style={{ marginBottom: 24, display: 'flex', gap: 24 }}>
