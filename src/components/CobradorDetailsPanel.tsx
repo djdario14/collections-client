@@ -88,11 +88,12 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
               </div>
               <button
                 style={{
-                  background: '#60a5fa', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 18, cursor: 'pointer', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600
+                  background: '#22d3ee', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 18, cursor: 'pointer', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600,
+                  boxShadow: '0 2px 8px #0001', transition: 'background 0.2s', minWidth: 170, justifyContent: 'center'
                 }}
                 onClick={() => setShowEditOptions(v => !v)}
               >
-                ✏️ Editar
+                <span style={{fontSize:20,marginRight:6}}>✏️</span> Editar
               </button>
               {showEditOptions && (
                 <div style={{ marginTop: 8, width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -111,7 +112,12 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
           ) : null}
           <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
             <span style={{ fontSize: 22, fontWeight: 600, marginBottom: 12 }}>Estadísticas de ruta</span>
-            <button style={{ background: '#22d3ee', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer' }}>📊 Ver estadísticas</button>
+            <button style={{
+              background: '#22d3ee', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600,
+              boxShadow: '0 2px 8px #0001', transition: 'background 0.2s', minWidth: 170, justifyContent: 'center'
+            }}>
+              <span style={{fontSize:20,marginRight:6}}>📊</span> Ver estadísticas
+            </button>
           </div>
         </div>
       )}
