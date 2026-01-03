@@ -1,3 +1,4 @@
+  const [showCobradores, setShowCobradores] = useState(false);
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +26,7 @@ export default function AdminDashboard({ theme, onToggleTheme, user, onLogout }:
   const [showCrearCobrador, setShowCrearCobrador] = useState(false);
   const [selectedCobrador, setSelectedCobrador] = useState(null as null | { id: number, nombre: string });
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showCobradores, setShowCobradores] = useState(false);
+
   const navigate = useNavigate();
 
   return (

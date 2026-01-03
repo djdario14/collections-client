@@ -1,6 +1,8 @@
+  const [resumen, setResumen] = useState<any>(null);
 import { useEffect, useState } from 'react';
 import ClientDetailModal from './ClientDetailModal';
 import { getCreditoStatus } from './creditoStatusUtils';
+import EstadisticasRutaModal from './EstadisticasRutaModal';
 
 const API_BASE = import.meta.env.VITE_API_URL;
 
@@ -28,10 +30,11 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [resumen, setResumen] = useState<any>(null);
+
   const [cobrador, setCobrador] = useState<any>(null);
   const [selectedClientId, setSelectedClientId] = useState<string|null>(null);
   const [showEditOptions, setShowEditOptions] = useState(false);
+  const [showStats, setShowStats] = useState(false);
 
 
   useEffect(() => {
@@ -70,6 +73,7 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
       </div>
       {cobrador && (
         <div style={{ marginBottom: 24, display: 'flex', gap: 24 }}>
+          {/* Bloque edición solo para admin/superadmin */}
           {userRole === 'admin' || userRole === 'superadmin' ? (
             <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002', position: 'relative' }}>
               <div style={{
@@ -110,6 +114,7 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
               )}
             </div>
           ) : null}
+          {/* Bloque estadísticas de ruta */}
           <div style={{ background: '#334155', color: '#e0e7ef', borderRadius: 12, padding: '24px 32px', minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: '0 2px 8px #0002' }}>
             <div style={{
               width: '100%',
@@ -125,12 +130,18 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
             }}>
               Estadísticas de ruta
             </div>
-            <button style={{
-              background: '#22d3ee', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600,
-              boxShadow: '0 2px 8px #0001', transition: 'background 0.2s', minWidth: 170, justifyContent: 'center'
-            }}>
+            <button
+              style={{
+                background: '#22d3ee', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600,
+                boxShadow: '0 2px 8px #0001', transition: 'background 0.2s', minWidth: 170, justifyContent: 'center'
+              }}
+              onClick={() => setShowStats(true)}
+            >
               <span style={{fontSize:20,marginRight:6}}>📊</span> Ver estadísticas
             </button>
+            {showStats && (
+              <EstadisticasRutaModal onClose={() => setShowStats(false)} cobradorId={cobradorId} token={token} />
+            )}
           </div>
         </div>
       )}

@@ -1,5 +1,6 @@
+  const [selectedCobrador, setSelectedCobrador] = useState<Cobrador | null>(null);
 import { useState, useEffect } from 'react'
-import CobradorRutaModal from './CobradorRutaModal'
+
 const API_BASE = import.meta.env.VITE_API_URL;
 
 type Cobrador = {
@@ -21,7 +22,7 @@ type Props = {
 export default function ListaCobradoresModal({ adminToken, adminId, onSelectCobrador }: Props) {
   const [cobradores, setCobradores] = useState<Cobrador[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCobrador, setSelectedCobrador] = useState<Cobrador | null>(null);
+
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
