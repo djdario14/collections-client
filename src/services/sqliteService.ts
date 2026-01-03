@@ -15,6 +15,7 @@ class SQLiteService {
   async init() {
     if (this.isWeb) {
       console.log('SQLite no disponible en web, usando modo online');
+      this.db = null;
       return false;
     }
 
@@ -99,7 +100,7 @@ class SQLiteService {
   // ==================== CLIENTS ====================
   
   async getClients() {
-    if (!this.db) return [];
+    if (this.isWeb || !this.db) return [];
 
     const result = await this.db.query(`
       SELECT 
@@ -120,7 +121,7 @@ class SQLiteService {
   }
 
   async getClientById(id: string) {
-    if (!this.db) return null;
+    if (this.isWeb || !this.db) return null;
 
     const numericId = id.startsWith('C-') ? id.slice(2) : id;
 
@@ -147,7 +148,7 @@ class SQLiteService {
   }
 
   async createClient(client: any) {
-    if (!this.db) return null;
+    if (this.isWeb || !this.db) return null;
 
     const result = await this.db.run(
       `INSERT INTO clients (nombre, identificacion, ubicacionGps, direccion, negocio, telefono, deuda, vencimiento, syncStatus)
@@ -179,7 +180,7 @@ class SQLiteService {
   }
 
   async updateClient(clientId: string, data: any) {
-    if (!this.db) return null;
+    if (this.isWeb || !this.db) return null;
 
     const numericId = clientId.startsWith('C-') ? clientId.slice(2) : clientId;
     
@@ -227,7 +228,7 @@ class SQLiteService {
   // ==================== CREDITS ====================
   
   async createCredit(clientId: string, credit: any) {
-    if (!this.db) return null;
+    if (this.isWeb || !this.db) return null;
 
     const numericId = clientId.startsWith('C-') ? parseInt(clientId.slice(2)) : parseInt(clientId);
     const total = Math.round((credit.amount + (credit.amount * credit.interest) / 100) * 100) / 100;
@@ -265,7 +266,7 @@ class SQLiteService {
   // ==================== PAYMENTS ====================
   
   async createPayment(clientId: string, payment: any) {
-    if (!this.db) return null;
+    if (this.isWeb || !this.db) return null;
 
     const numericId = clientId.startsWith('C-') ? parseInt(clientId.slice(2)) : parseInt(clientId);
     const numericCreditId = payment.creditId && payment.creditId.startsWith('CR-') ? parseInt(payment.creditId.slice(3)) : null;
@@ -300,7 +301,7 @@ class SQLiteService {
   // ==================== SYNC QUEUE ====================
   
   private async addToSyncQueue(tableName: string, recordId: number, action: string, data: any) {
-    if (!this.db) return;
+    if (this.isWeb || !this.db) return;
 
     await this.db.run(
       `INSERT INTO sync_queue (table_name, record_id, action, data)
@@ -310,7 +311,7 @@ class SQLiteService {
   }
 
   async getSyncQueue() {
-    if (!this.db) return [];
+    if (this.isWeb || !this.db) return [];
 
     const result = await this.db.query(
       `SELECT * FROM sync_queue ORDER BY created_at ASC`
@@ -323,13 +324,13 @@ class SQLiteService {
   }
 
   async clearSyncQueue() {
-    if (!this.db) return;
+    if (this.isWeb || !this.db) return;
 
     await this.db.run(`DELETE FROM sync_queue`);
   }
 
   async removeSyncQueueItem(id: number) {
-    if (!this.db) return;
+    if (this.isWeb || !this.db) return;
 
     await this.db.run(`DELETE FROM sync_queue WHERE id = ?`, [id]);
   }
@@ -337,6 +338,7 @@ class SQLiteService {
   // ==================== UTILS ====================
   
   async close() {
+    if (this.isWeb) return;
     if (this.db) {
       await this.db.close();
       this.db = null;

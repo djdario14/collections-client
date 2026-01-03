@@ -33,18 +33,29 @@ const API_BASE = import.meta.env.VITE_API_URL;
 let isOnline = typeof navigator !== 'undefined' ? navigator.onLine : true;
 let sqliteReady = false;
 
+// Detect if running in web mode (no SQLite available)
+const isWeb = typeof window !== 'undefined' && navigator.userAgent.includes('Chrome') && !window.Capacitor;
+
+if (isWeb) {
+  sqliteReady = false;
+  console.log('Web mode detected: SQLite features disabled');
+}
+
 // Inicializar SQLite al cargar
 if (typeof window !== 'undefined') {
-  sqliteService.init().then(ready => {
-    sqliteReady = ready;
-    console.log('SQLite ready:', ready);
-  });
+  // Only initialize SQLite if not in web mode
+  if (!isWeb) {
+    sqliteService.init().then(ready => {
+      sqliteReady = ready;
+      console.log('SQLite ready:', ready);
+    });
+  }
 
   // Detectar cambios en conexión
   window.addEventListener('online', () => {
     isOnline = true;
     console.log('🟢 Conexión restaurada');
-    syncWithServer();
+    if (!isWeb) syncWithServer();
   });
 
   window.addEventListener('offline', () => {
@@ -133,7 +144,7 @@ async function syncWithServer() {
 
 export async function getClients(): Promise<Cliente[]> {
   // Si SQLite está disponible y no hay conexión, usar local
-  if (sqliteReady && !isOnline) {
+  if (sqliteReady && !isWeb && !isOnline) {
     console.log('📱 Obteniendo clientes desde SQLite local');
     return await sqliteService.getClients();
   }
@@ -154,7 +165,7 @@ export async function getClients(): Promise<Cliente[]> {
 }
 
 export async function getClientById(id: string): Promise<Cliente | undefined> {
-  if (sqliteReady && !isOnline) {
+  if (sqliteReady && !isWeb && !isOnline) {
     console.log('📱 Obteniendo cliente desde SQLite local');
     return await sqliteService.getClientById(id);
   }
@@ -173,7 +184,7 @@ export async function getClientById(id: string): Promise<Cliente | undefined> {
 
 export async function createPayment(clientId: string, payment: Omit<Payment, 'id'>): Promise<Payment | undefined> {
   // Si no hay conexión, guardar localmente
-  if (sqliteReady && !isOnline) {
+  if (sqliteReady && !isWeb && !isOnline) {
     console.log('💾 Guardando pago localmente (se sincronizará después)');
     return await sqliteService.createPayment(clientId, payment);
   }
@@ -192,7 +203,7 @@ export async function createPayment(clientId: string, payment: Omit<Payment, 'id
 }
 
 export async function createClient(payload: Omit<Cliente, 'id' | 'payments'>): Promise<Cliente> {
-  if (sqliteReady && !isOnline) {
+  if (sqliteReady && !isWeb && !isOnline) {
     console.log('💾 Guardando cliente localmente (se sincronizará después)');
     return await sqliteService.createClient(payload);
   }
@@ -210,7 +221,7 @@ export async function createClient(payload: Omit<Cliente, 'id' | 'payments'>): P
 }
 
 export async function createCredit(clientId: string, credit: Omit<Credit, 'id' | 'date' | 'total'> & { amount: number; interest?: number; frequency: Credit['frequency'] }): Promise<Credit | undefined> {
-  if (sqliteReady && !isOnline) {
+  if (sqliteReady && !isWeb && !isOnline) {
     console.log('💾 Guardando crédito localmente (se sincronizará después)');
     return await sqliteService.createCredit(clientId, credit);
   }
@@ -237,7 +248,7 @@ export async function updateClient(clientId: string, data: Partial<Cliente>): Pr
   console.log('🌐 updateClient llamado - ID:', clientId, 'Data:', data);
   console.log('📡 Estado: isOnline =', isOnline, ', sqliteReady =', sqliteReady);
   
-  if (sqliteReady && !isOnline) {
+  if (sqliteReady && !isWeb && !isOnline) {
     console.log('💾 Actualizando cliente localmente (se sincronizará después)');
     return await sqliteService.updateClient(clientId, data);
   }
