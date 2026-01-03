@@ -83,7 +83,7 @@ export default function CobradorDetailsPanel({ cobradorId, token, onBack, nombre
               {showEditOptions && (
                 <div style={{ marginTop: 8, width: '100%', display: 'flex', flexDirection: 'column', gap: 12 }}>
                   <button style={{ background: '#60a5fa', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
-                    ✏️ Cambiar nombre
+                    ✏️ Editar
                   </button>
                   <button style={{ background: '#6366f1', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 18px', fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
                     🔑 Cambiar contraseña
