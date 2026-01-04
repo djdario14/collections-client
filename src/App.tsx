@@ -1,5 +1,6 @@
 // Forzar redeploy del frontend (actualización)
 import React, { useState, useEffect } from 'react';
+// trigger redeploy: 2026-01-03
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import SuperAdminDashboard from './components/SuperAdminDashboard';
